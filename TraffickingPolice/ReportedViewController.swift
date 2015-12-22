@@ -14,6 +14,8 @@ class ReportedViewController: UIViewController, UITableViewDataSource, UITableVi
     var tableView: UITableView!
     var datasourceArray: [PFObject] = []
     
+    var refreshControl: UIRefreshControl = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,8 +26,17 @@ class ReportedViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.delegate = self
         self.view.addSubview(tableView)
         
+        refreshControl.addTarget(self, action: "refreshData", forControlEvents: .ValueChanged)
+        self.tableView.addSubview(refreshControl)
+        
+        refreshData()
+    }
+    
+    func refreshData() {
         let query = PFQuery(className: "Reported")
+        query.orderByDescending("createdAt")
         query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) -> Void in
+            self.refreshControl.endRefreshing()
             if let objects = objects {
                 self.datasourceArray = objects
                 self.tableView.reloadData()

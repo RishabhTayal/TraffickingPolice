@@ -26,6 +26,7 @@ class ReportViewController: XLFormViewController {
         static let Url = "url"
         static let ZipCode = "zipCode"
         static let TextView = "textView"
+        static let Location = "location"
         static let Notes = "notes"
     }
     
@@ -39,7 +40,7 @@ class ReportViewController: XLFormViewController {
         
         self.title = "Report"
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "savePressed:")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Report", style: .Plain, target: self, action: "savePressed:")
     }
     
     func savePressed(button: UIBarButtonItem){
@@ -57,7 +58,27 @@ class ReportViewController: XLFormViewController {
         
         let object = PFObject(className: "Reported")
         for key in form.formValues().keys {
-            object.setObject(form.formValues()[key]!, forKey: key as! String)
+            if let image: UIImage = form.formValues()[key] as? UIImage {
+                print(image)
+                let imageData = UIImagePNGRepresentation(image)
+                let imageFile = PFFile(name: "image.png", data: imageData!)
+                do {
+                    try imageFile?.save()
+                    object.setObject(imageFile!, forKey: key as! String)
+                } catch {
+                    
+                }
+            } else if key == Tags.Location {
+                if let value = form.formValues()[key] as? Bool {
+                    if value {
+                        PFGeoPoint.geoPointForCurrentLocationInBackground({ (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
+                            object.setObject(geoPoint!, forKey: key as! String)
+                        })
+                    }
+                }
+            } else {
+                object.setObject(form.formValues()[key]!, forKey: key as! String)
+            }
         }
         object.saveInBackground()
     }
@@ -75,7 +96,6 @@ class ReportViewController: XLFormViewController {
         //        section.footerTitle = "This is a long text that will appear on section footer"
         form.addFormSection(section)
         
-        
         // Name
         row = XLFormRowDescriptor(tag: Tags.Name, rowType: XLFormRowDescriptorTypeText, title: "Name")
         row.required = true
@@ -84,16 +104,11 @@ class ReportViewController: XLFormViewController {
         // Age
         row = XLFormRowDescriptor(tag: Tags.PickerView, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"Age")
         row.selectorOptions = ["0-10", "11-18", "19-25", "26-35", "36-50"]
-        //        row.value = "11-18"
         section.addFormRow(row)
         
         // Zip Code
         row = XLFormRowDescriptor(tag: Tags.ZipCode, rowType: XLFormRowDescriptorTypeZipCode, title: "Zip Code")
         section.addFormRow(row)
-        
-        //        // Number
-        //        row = XLFormRowDescriptor(tag: Tags.Number, rowType: XLFormRowDescriptorTypeNumber, title: "Number")
-        //        section.addFormRow(row)
         
         // Integer
         row = XLFormRowDescriptor(tag: Tags.Integer, rowType: XLFormRowDescriptorTypeInteger, title: "Integer")
@@ -101,12 +116,13 @@ class ReportViewController: XLFormViewController {
         
         // Phone
         row = XLFormRowDescriptor(tag: Tags.Phone, rowType: XLFormRowDescriptorTypePhone, title: "Phone")
-        //        row.cellConfig.setObject("Optional", forKey: "textfield.placeholder")
         section.addFormRow(row)
         
-        // Url
-        //        row = XLFormRowDescriptor(tag: Tags.Url, rowType: XLFormRowDescriptorTypeURL, title: "Url")
-        //        section.addFormRow(row)
+        section = XLFormSectionDescriptor.formSectionWithTitle("Location")
+        form.addFormSection(section)
+        
+        row = XLFormRowDescriptor(tag: Tags.Location, rowType: XLFormRowDescriptorTypeBooleanSwitch, title: "Location")
+        section.addFormRow(row)
         
         section = XLFormSectionDescriptor.formSectionWithTitle("Images")
         form.addFormSection(section)
@@ -123,9 +139,6 @@ class ReportViewController: XLFormViewController {
         row.cellConfigAtConfigure["textView.placeholder"] = "Notes"
         section.addFormRow(row)
         
-        //        section = XLFormSectionDescriptor.formSectionWithTitle("TextView With Label Example")
-        //        form.addFormSection(section)
-        
         self.form = form
     }
     
@@ -136,6 +149,24 @@ class ReportViewController: XLFormViewController {
             newRow.tag = "secondAlert"
             //            newRow.title = "Second Alert"
             form.addFormRow(newRow, afterRow:formRow)
+        }
+        if formRow.tag == Tags.Location {
+            if let newValue = newValue as? Bool {
+                print(newValue)
+                let section = formRow.sectionDescriptor
+                if newValue {
+                    PFGeoPoint.geoPointForCurrentLocationInBackground({ (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
+                        if let geoPoint = geoPoint {
+                            section.footerTitle = String(geoPoint.latitude + geoPoint.longitude)
+                            self.tableView.reloadData()
+                        }
+                    })
+                    
+                } else {
+                    section.footerTitle = nil
+                }
+                tableView.reloadData()
+            }
         }
     }
 }

@@ -10,14 +10,19 @@ import UIKit
 
 class InstructionsViewController: UIViewController {
     
+    @IBOutlet var webView: UIWebView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Instructions"
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        let htmlFile = NSBundle.mainBundle().pathForResource("Instructions", ofType: "html")
+        do {
+            let htmlString = try NSString(contentsOfFile: htmlFile!, encoding: NSUTF8StringEncoding)
+            webView.loadHTMLString(htmlString as String, baseURL: nil)
+        } catch {
+            
+        }
     }
 }

@@ -81,11 +81,35 @@
                     <view key="view" contentMode="scaleToFill" id="6G7-4h-JjQ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nrx-2A-vsh">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="nrx-2A-vsh" firstAttribute="bottom" secondItem="2Li-97-g6g" secondAttribute="top" id="0E8-uR-g0Q"/>
+                            <constraint firstAttribute="trailing" secondItem="nrx-2A-vsh" secondAttribute="trailing" id="6In-cn-JPR"/>
+                            <constraint firstItem="nrx-2A-vsh" firstAttribute="top" secondItem="2wP-dP-v0z" secondAttribute="bottom" id="FZJ-Wr-C5e"/>
+                            <constraint firstItem="nrx-2A-vsh" firstAttribute="top" secondItem="2wP-dP-v0z" secondAttribute="bottom" id="Gfx-tY-oK9"/>
+                            <constraint firstItem="nrx-2A-vsh" firstAttribute="top" secondItem="6G7-4h-JjQ" secondAttribute="top" id="Yh1-iD-xro"/>
+                            <constraint firstItem="nrx-2A-vsh" firstAttribute="leading" secondItem="6G7-4h-JjQ" secondAttribute="leading" id="o6g-mF-iSj"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="FZJ-Wr-C5e"/>
+                                <exclude reference="Gfx-tY-oK9"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="webView" destination="nrx-2A-vsh" id="FHw-UQ-H5i"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wZB-ZC-ACv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="325" y="186"/>
         </scene>
     </scenes>
 </document>
