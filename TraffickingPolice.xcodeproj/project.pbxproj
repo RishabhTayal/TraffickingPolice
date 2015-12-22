@@ -191,6 +191,7 @@
 				TargetAttributes = {
 					69EE71FF1C28C6F4009C1957 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = CEBY93VF85;
 					};
 					69EE72131C28C6F4009C1957 = {
 						CreatedOnToolsVersion = 7.2;
@@ -437,7 +438,9 @@
 			baseConfigurationReference = 8C989E03C1B9609BABF047F3 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = TraffickingPolice/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rtayal.TraffickingPolice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -449,7 +452,9 @@
 			baseConfigurationReference = AB610B7393E42287B883752E /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = TraffickingPolice/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rtayal.TraffickingPolice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
