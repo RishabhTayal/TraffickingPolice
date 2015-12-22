@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ReportedViewController.swift
 //  TraffickingPolice
 //
 //  Created by Tayal, Rishabh on 12/21/15.
@@ -8,16 +8,16 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ReportedViewController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        title = "Reported"
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 }
-

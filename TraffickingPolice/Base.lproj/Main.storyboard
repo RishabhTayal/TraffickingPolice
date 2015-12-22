@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Report View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="TraffickingPolice" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReportViewController" id="BYZ-38-t0r" customClass="ReportViewController" customModule="TraffickingPolice" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -52,6 +52,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mxf-nN-aBJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="372" y="707"/>
+        </scene>
+        <!--Reported View Controller-->
+        <scene sceneID="gh0-mO-xe5">
+            <objects>
+                <viewController storyboardIdentifier="ReportedViewController" id="1XW-QH-hXN" customClass="ReportedViewController" customModule="TraffickingPolice" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Eif-vI-GZJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="ctA-Zz-QO0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JdF-eD-Whu">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tEK-N3-cXi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+        <!--Instructions View Controller-->
+        <scene sceneID="7iL-G7-xDE">
+            <objects>
+                <viewController storyboardIdentifier="InstructionsViewController" id="HCZ-2V-PoP" customClass="InstructionsViewController" customModule="TraffickingPolice" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2wP-dP-v0z"/>
+                        <viewControllerLayoutGuide type="bottom" id="2Li-97-g6g"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6G7-4h-JjQ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wZB-ZC-ACv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
 </document>

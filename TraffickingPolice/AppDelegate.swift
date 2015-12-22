@@ -49,9 +49,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func showMainScreen() {
         
         let sb = UIStoryboard(name: "Main", bundle: nil)
-        let vc = sb.instantiateViewControllerWithIdentifier("ViewController") as! ViewController
+        let vc = sb.instantiateViewControllerWithIdentifier("ReportViewController") as! ReportViewController
+        let nav1 = UINavigationController(rootViewController: vc)
+        
+        let vc2 = sb.instantiateViewControllerWithIdentifier("ReportedViewController") as! ReportedViewController
+        let nav2 = UINavigationController(rootViewController: vc2)
+        
+        let vc3 = sb.instantiateViewControllerWithIdentifier("InstructionsViewController") as! InstructionsViewController
+        let nav3 = UINavigationController(rootViewController: vc3)
+        
+        let tab: UITabBarController = UITabBarController()
+        tab.viewControllers = [nav1, nav2, nav3]
+        
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.rootViewController = UINavigationController(rootViewController: vc)
+        self.window?.rootViewController = tab
         self.window?.makeKeyAndVisible()
     }
 }
