@@ -5,6 +5,9 @@ PODS:
   - Bolts/AppLinks (1.5.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.5.0)
+  - Crashlytics (3.4.1):
+    - Fabric (~> 1.6.0)
+  - Fabric (1.6.1)
   - FBSDKCoreKit (4.9.0-beta2):
     - Bolts (~> 1.5)
   - FBSDKLoginKit (4.9.0-beta2):
@@ -21,6 +24,8 @@ PODS:
   - XLForm (3.1.0)
 
 DEPENDENCIES:
+  - Crashlytics
+  - Fabric
   - MBProgressHUD
   - Parse
   - ParseFacebookUtilsV4
@@ -28,6 +33,8 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Bolts: 722ab9a4f8b50fc4ed1b9998a5a7a2b3f16d80b4
+  Crashlytics: 41574a245bc6ae10c55d57f385ebd2004e5bee05
+  Fabric: bf0ceb04e7c924090efc5f8c55e4fbcca189e0a0
   FBSDKCoreKit: d49cbf69741e3c5732166ec9ff4cbd9b288dd53e
   FBSDKLoginKit: d32e83c0d2d39ef74a942543cacae2dc4de7d088
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
