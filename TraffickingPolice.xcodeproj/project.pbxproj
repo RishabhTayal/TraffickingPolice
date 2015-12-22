@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		695BB7101C2A00E100C92376 /* Instructions.html in Resources */ = {isa = PBXBuildFile; fileRef = 695BB70F1C2A00E100C92376 /* Instructions.html */; };
+		695BB7141C2A139700C92376 /* AppHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695BB7131C2A139700C92376 /* AppHelper.swift */; };
 		69EE72041C28C6F4009C1957 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EE72031C28C6F4009C1957 /* AppDelegate.swift */; };
 		69EE72061C28C6F4009C1957 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EE72051C28C6F4009C1957 /* ReportViewController.swift */; };
 		69EE72091C28C6F4009C1957 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69EE72071C28C6F4009C1957 /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		695BB70F1C2A00E100C92376 /* Instructions.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Instructions.html; sourceTree = "<group>"; };
+		695BB7131C2A139700C92376 /* AppHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppHelper.swift; sourceTree = "<group>"; };
 		69EE72001C28C6F4009C1957 /* TraffickingPolice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TraffickingPolice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69EE72031C28C6F4009C1957 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69EE72051C28C6F4009C1957 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				69F445631C28CCE800F4A2DA /* InstructionsViewController.swift */,
 				69F445611C28CC0900F4A2DA /* ReportedViewController.swift */,
 				69EE72051C28C6F4009C1957 /* ReportViewController.swift */,
+				695BB7131C2A139700C92376 /* AppHelper.swift */,
 				69F4455F1C28C7AF00F4A2DA /* LoginViewController.swift */,
 				69EE72231C28C767009C1957 /* Suporting Files */,
 			);
@@ -324,6 +327,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69F445601C28C7AF00F4A2DA /* LoginViewController.swift in Sources */,
+				695BB7141C2A139700C92376 /* AppHelper.swift in Sources */,
 				69EE72061C28C6F4009C1957 /* ReportViewController.swift in Sources */,
 				69EE72041C28C6F4009C1957 /* AppDelegate.swift in Sources */,
 				69F445621C28CC0900F4A2DA /* ReportedViewController.swift in Sources */,
