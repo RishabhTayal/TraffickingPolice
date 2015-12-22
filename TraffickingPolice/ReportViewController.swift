@@ -8,6 +8,7 @@
 
 import UIKit
 import XLForm
+import Parse
 
 class ReportViewController: XLFormViewController {
 
@@ -37,6 +38,24 @@ class ReportViewController: XLFormViewController {
         super.viewDidLoad()
         
         self.title = "Report"
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "savePressed:")
+    }
+    
+    func savePressed(button: UIBarButtonItem){
+        let validationErrors : Array<NSError> = formValidationErrors() as! Array<NSError>
+        if (validationErrors.count > 0){
+            showFormValidationError(validationErrors.first)
+            return
+        }
+        tableView.endEditing(true)
+        print(self.form.formValues())
+    
+        var object = PFObject(className: "Reported")
+        for key in form.formValues().keys {
+            object.setObject(form.formValues()[key]!, forKey: key as! String)
+        }
+        object.saveInBackground()
     }
     
     func initialForm() {
@@ -48,13 +67,10 @@ class ReportViewController: XLFormViewController {
         form = XLFormDescriptor(title: "Text Fields")
         form.assignFirstResponderOnShow = true
         
-        section = XLFormSectionDescriptor.formSectionWithTitle("TextField Types")
-        section.footerTitle = "This is a long text that will appear on section footer"
+        section = XLFormSectionDescriptor.formSectionWithTitle("")
+//        section.footerTitle = "This is a long text that will appear on section footer"
         form.addFormSection(section)
         
-        row = XLFormRowDescriptor(tag: Tags.Image, rowType: XLFormRowDescriptorTypeImage, title: "Image")
-        row.value = UIImage(named: "default_avatar")
-        section.addFormRow(row)
         
         // Name
         row = XLFormRowDescriptor(tag: Tags.Name, rowType: XLFormRowDescriptorTypeText, title: "Name")
@@ -66,6 +82,10 @@ class ReportViewController: XLFormViewController {
         row.selectorOptions = ["0-10", "11-18", "19-25", "26-35", "36-50"]
 //        row.value = "11-18"
         section.addFormRow(row)
+        
+//        row = XLFormRowDescriptor(tag: Tags.Image, rowType: XLFormRowDescriptorTypeImage, title: "Image")
+//        row.value = UIImage(named: "default_avatar")
+//        section.addFormRow(row)
         
         // Zip Code
         row = XLFormRowDescriptor(tag: Tags.ZipCode, rowType: XLFormRowDescriptorTypeZipCode, title: "Zip Code")
@@ -81,22 +101,23 @@ class ReportViewController: XLFormViewController {
         
         // Phone
         row = XLFormRowDescriptor(tag: Tags.Phone, rowType: XLFormRowDescriptorTypePhone, title: "Phone")
+//        row.cellConfig.setObject("Optional", forKey: "textfield.placeholder")
         section.addFormRow(row)
         
         // Url
-        row = XLFormRowDescriptor(tag: Tags.Url, rowType: XLFormRowDescriptorTypeURL, title: "Url")
-        section.addFormRow(row)
+//        row = XLFormRowDescriptor(tag: Tags.Url, rowType: XLFormRowDescriptorTypeURL, title: "Url")
+//        section.addFormRow(row)
         
         section = XLFormSectionDescriptor.formSection()
         form.addFormSection(section)
         
         // TextView
         row = XLFormRowDescriptor(tag: Tags.TextView, rowType: XLFormRowDescriptorTypeTextView)
-        row.cellConfigAtConfigure["textView.placeholder"] = "TEXT VIEW EXAMPLE"
+        row.cellConfigAtConfigure["textView.placeholder"] = "Notes"
         section.addFormRow(row)
         
-        section = XLFormSectionDescriptor.formSectionWithTitle("TextView With Label Example")
-        form.addFormSection(section)
+//        section = XLFormSectionDescriptor.formSectionWithTitle("TextView With Label Example")
+//        form.addFormSection(section)
         
         self.form = form
     }
