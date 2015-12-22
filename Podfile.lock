@@ -18,11 +18,13 @@ PODS:
     - FBSDKLoginKit (~> 4.9.0-beta)
     - FBSDKTVOSKit (~> 4.9.0-beta)
     - Parse (~> 1.11)
+  - XLForm (3.1.0)
 
 DEPENDENCIES:
   - MBProgressHUD
   - Parse
   - ParseFacebookUtilsV4
+  - XLForm
 
 SPEC CHECKSUMS:
   Bolts: 722ab9a4f8b50fc4ed1b9998a5a7a2b3f16d80b4
@@ -31,5 +33,6 @@ SPEC CHECKSUMS:
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   Parse: 886af46a0a677402f6374bb97ac212e795f70afe
   ParseFacebookUtilsV4: 3cd2d2d69653bad40c8c58131b935c353a0f3f15
+  XLForm: 754b061f9f4b249a7ab7548efb22f1b586e26740
 
 COCOAPODS: 0.39.0
