@@ -52,7 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func showMainScreen() {
         
         let sb = UIStoryboard(name: "Main", bundle: nil)
-        let vc = sb.instantiateViewControllerWithIdentifier("ReportViewController") as! ReportViewController
+        let vc = sb.instantiateViewControllerWithIdentifier("MainViewController") as! MainViewController
+        vc.title = "Report"
         let nav1 = UINavigationController(rootViewController: vc)
         
         let vc2 = sb.instantiateViewControllerWithIdentifier("ReportedViewController") as! ReportedViewController

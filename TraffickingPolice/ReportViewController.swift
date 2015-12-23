@@ -80,7 +80,9 @@ class ReportViewController: XLFormViewController {
                 object.setObject(form.formValues()[key]!, forKey: key as! String)
             }
         }
-        object.saveInBackground()
+        object.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+            self.navigationController?.popViewControllerAnimated(true)
+        }
     }
     
     func initialForm() {
