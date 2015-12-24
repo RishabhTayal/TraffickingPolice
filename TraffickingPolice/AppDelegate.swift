@@ -31,6 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             showMainScreen()
         }
         
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.redColor()], forState: .Selected)
+        
         return true
     }
     
@@ -57,9 +59,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         vc.tabBarItem.image = UIImage(named: "red-light-bulb-hi")
         let nav1 = UINavigationController(rootViewController: vc)
         
-        let vc2 = sb.instantiateViewControllerWithIdentifier("ReportedViewController") as! ReportedViewController
-        vc2.title = "Reported"
-        let nav2 = UINavigationController(rootViewController: vc2)
+//        let vc2 = sb.instantiateViewControllerWithIdentifier("ReportedViewController") as! ReportedViewController
+//        vc2.title = "Reported"
+//        let nav2 = UINavigationController(rootViewController: vc2)
         
         let vc3 = sb.instantiateViewControllerWithIdentifier("InstructionsViewController") as! InstructionsViewController
         vc3.title = "Instructions"
@@ -67,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let nav3 = UINavigationController(rootViewController: vc3)
         
         let tab: UITabBarController = UITabBarController()
-        tab.viewControllers = [nav1, nav2, nav3]
+        tab.viewControllers = [nav1, nav3] //nav2, nav3]
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window?.rootViewController = tab
