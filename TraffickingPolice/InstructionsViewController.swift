@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class InstructionsViewController: UIViewController {
     
@@ -24,5 +25,13 @@ class InstructionsViewController: UIViewController {
         } catch {
             
         }
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logoutTapped:")
+    }
+    
+    func logoutTapped(sender: AnyObject) {
+        PFUser.logOut()
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        app.showLoginScreen()
     }
 }

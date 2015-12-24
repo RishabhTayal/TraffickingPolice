@@ -132,7 +132,8 @@
                                     <constraint firstAttribute="width" constant="124" id="VfK-sK-74h"/>
                                     <constraint firstAttribute="width" secondItem="gGw-cF-ZU3" secondAttribute="height" id="XRh-yM-MPw"/>
                                 </constraints>
-                                <state key="normal" title="Report"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="18"/>
+                                <state key="normal" title="REPORT"/>
                                 <connections>
                                     <action selector="buttonTapped:" destination="Urk-2k-dqY" eventType="touchUpInside" id="zLs-GK-NcN"/>
                                 </connections>
