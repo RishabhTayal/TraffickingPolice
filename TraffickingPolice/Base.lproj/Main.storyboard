@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Report View Controller-->
@@ -21,6 +22,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-273" y="111"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="9na-0w-D2S">
@@ -51,7 +53,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mxf-nN-aBJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="372" y="707"/>
+            <point key="canvasLocation" x="442" y="839"/>
         </scene>
         <!--Reported View Controller-->
         <scene sceneID="gh0-mO-xe5">
@@ -84,7 +86,7 @@
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nrx-2A-vsh">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -109,7 +111,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wZB-ZC-ACv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="325" y="186"/>
+            <point key="canvasLocation" x="1153" y="834"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="TQ8-eN-ajV">
@@ -123,9 +125,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gGw-cF-ZU3">
-                                <rect key="frame" x="277" y="285" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gGw-cF-ZU3">
+                                <rect key="frame" x="238" y="238" width="124" height="124"/>
+                                <color key="backgroundColor" red="1" green="0.19921875" blue="0.089180871212121218" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="124" id="VfK-sK-74h"/>
+                                    <constraint firstAttribute="width" secondItem="gGw-cF-ZU3" secondAttribute="height" id="XRh-yM-MPw"/>
+                                </constraints>
+                                <state key="normal" title="Report"/>
                                 <connections>
                                     <action selector="buttonTapped:" destination="Urk-2k-dqY" eventType="touchUpInside" id="zLs-GK-NcN"/>
                                 </connections>
@@ -137,9 +144,13 @@
                             <constraint firstItem="gGw-cF-ZU3" firstAttribute="centerY" secondItem="coc-YU-NTz" secondAttribute="centerY" id="arh-wh-j5h"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="reportButton" destination="gGw-cF-ZU3" id="PH6-ek-pYv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MQn-Ry-Dp4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="460" y="111"/>
         </scene>
     </scenes>
 </document>

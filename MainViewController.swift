@@ -9,18 +9,20 @@
 import UIKit
 
 class MainViewController: UIViewController {
-
+    
+    @IBOutlet var reportButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        reportButton.roundView()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     @IBAction func buttonTapped(sender: AnyObject) {
         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("ReportViewController") as! ReportViewController
         self.navigationController?.pushViewController(vc, animated: true)
