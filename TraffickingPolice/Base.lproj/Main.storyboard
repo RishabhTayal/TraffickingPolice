@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Report View Controller-->
@@ -37,8 +38,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9kv-Lm-3dn">
-                                <rect key="frame" x="281" y="285" width="38" height="30"/>
-                                <state key="normal" title="Login"/>
+                                <rect key="frame" x="50" y="278" width="500" height="44"/>
+                                <color key="backgroundColor" red="0.23137254901960785" green="0.34901960784313724" blue="0.59607843137254901" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="WeW-fs-Y0t"/>
+                                </constraints>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="loginTapped:" destination="fzo-DL-X8m" eventType="touchUpInside" id="y7e-v4-KKp"/>
                                 </connections>
@@ -48,8 +55,13 @@
                         <constraints>
                             <constraint firstItem="9kv-Lm-3dn" firstAttribute="centerX" secondItem="pxq-7c-8eq" secondAttribute="centerX" id="4Ob-EE-NsV"/>
                             <constraint firstItem="9kv-Lm-3dn" firstAttribute="centerY" secondItem="pxq-7c-8eq" secondAttribute="centerY" id="Eiy-xF-vTa"/>
+                            <constraint firstItem="9kv-Lm-3dn" firstAttribute="leading" secondItem="pxq-7c-8eq" secondAttribute="leadingMargin" constant="30" id="M2w-D0-w6y"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9kv-Lm-3dn" secondAttribute="trailing" constant="30" id="Vue-j4-6IW"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="loginButton" destination="9kv-Lm-3dn" id="o8S-x8-0bf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mxf-nN-aBJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
