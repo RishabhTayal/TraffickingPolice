@@ -18,6 +18,11 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         reportButton.roundView()
+        reportButton.layer.shadowColor = UIColor.blackColor().CGColor
+        reportButton.layer.shadowRadius = 6
+        reportButton.layer.shadowOffset = CGSizeMake(0, 0)
+        reportButton.layer.masksToBounds = false
+        reportButton.layer.shadowOpacity = 0.5
         
         halo = PulsingHaloLayer()
         halo.radius = reportButton.frame.size.width + 60

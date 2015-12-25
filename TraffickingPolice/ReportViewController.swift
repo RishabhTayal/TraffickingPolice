@@ -9,6 +9,7 @@
 import UIKit
 import XLForm
 import Parse
+import MBProgressHUD
 
 class ReportViewController: XLFormViewController {
     
@@ -44,6 +45,7 @@ class ReportViewController: XLFormViewController {
     }
     
     func savePressed(button: UIBarButtonItem){
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         let validationErrors : Array<NSError> = formValidationErrors() as! Array<NSError>
         if (validationErrors.count > 0) {
             print(validationErrors.first?.localizedDescription)
@@ -81,7 +83,12 @@ class ReportViewController: XLFormViewController {
             }
         }
         object.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
-            self.navigationController?.popViewControllerAnimated(true)
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
+            let alert = UIAlertController(title: "Activity reported successfully", message: "", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction) -> Void in
+                self.navigationController?.popViewControllerAnimated(true)
+            }))
+            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
     
@@ -99,8 +106,9 @@ class ReportViewController: XLFormViewController {
         form.addFormSection(section)
         
         // Name
-        row = XLFormRowDescriptor(tag: Tags.Name, rowType: XLFormRowDescriptorTypeText, title: "Name")
+        row = XLFormRowDescriptor(tag: Tags.Name, rowType: XLFormRowDescriptorTypeName, title: "Name")
         row.required = true
+        row.cellConfig.setObject(NSTextAlignment.Right.rawValue, forKey: "textField.textAlignment")
         section.addFormRow(row)
         
         // Age
@@ -110,14 +118,16 @@ class ReportViewController: XLFormViewController {
         
         // Zip Code
         row = XLFormRowDescriptor(tag: Tags.ZipCode, rowType: XLFormRowDescriptorTypeZipCode, title: "Zip Code")
+        row.cellConfig.setObject(NSTextAlignment.Right.rawValue, forKey: "textField.textAlignment")
         section.addFormRow(row)
         
-        // Integer
-        row = XLFormRowDescriptor(tag: Tags.Integer, rowType: XLFormRowDescriptorTypeInteger, title: "Integer")
-        section.addFormRow(row)
+//        // Integer
+//        row = XLFormRowDescriptor(tag: Tags.Integer, rowType: XLFormRowDescriptorTypeInteger, title: "Integer")
+//        section.addFormRow(row)
         
         // Phone
         row = XLFormRowDescriptor(tag: Tags.Phone, rowType: XLFormRowDescriptorTypePhone, title: "Phone")
+        row.cellConfig.setObject(NSTextAlignment.Right.rawValue, forKey: "textField.textAlignment")
         section.addFormRow(row)
         
         section = XLFormSectionDescriptor.formSectionWithTitle("Location")

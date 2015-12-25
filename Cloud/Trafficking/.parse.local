@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "Trafficking": {
+      "applicationId": "No8pkeg26XXKrFK4mAI5HUCN5qXAXa1hOrxjGk6c"
+    },
+    "_default": {
+      "link": "Trafficking"
+    }
+  }
+}

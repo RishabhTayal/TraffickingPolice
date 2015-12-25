@@ -21,6 +21,6 @@ class AppHelper: NSObject {
 extension UIView {
     func roundView() {
         self.layer.cornerRadius = CGRectGetWidth(self.frame) / 2
-        self.clipsToBounds = true
+//        self.clipsToBounds = true
     }
 }

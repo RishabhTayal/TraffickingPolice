@@ -21,8 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         Fabric.with([Crashlytics.self])
 
-        Parse.setApplicationId("rPbZtCbRv7QiEubmB5mm4PkWrsEPNZ2ECxVQMUBT",
-            clientKey: "AfNkj8eXEaUn0Tqqx8i6jVuLirHN5aqEuUVBBtat")
+        Parse.setApplicationId("No8pkeg26XXKrFK4mAI5HUCN5qXAXa1hOrxjGk6c",
+            clientKey: "pSkWBWYZsfBKHchgBg5Ngh7I55oxqR11UzmluauE")
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
 
         if PFUser.currentUser() == nil {
