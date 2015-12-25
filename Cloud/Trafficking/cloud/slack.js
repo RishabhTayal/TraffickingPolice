@@ -4,7 +4,7 @@ exports.postNotificationToSlack = function(message, parseObject) {
 	if (Parse.applicationId == 'No8pkeg26XXKrFK4mAI5HUCN5qXAXa1hOrxjGk6c') {
 		//Development version of parse app
 		slackURL = 'https://hooks.slack.com/services/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'
-		appName = 'Trafficking-dev'
+		appName = 'Trafficking'
 	} else if (Parse.applicationId == '') {
 		//Production version of parse app
 		slackURL = 'https://hooks.slack.com/services/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'

@@ -13,6 +13,6 @@ Parse.Cloud.afterSave("Reported", function(request) {
 		// 		emailSender.sendEmailToClientWhenNewServiceRequestPosted(user.get('email'), user.get('name'), car.get('year') + ' ' + car.get('make') + ' ' + car.get('model'));
 		// 	}
 		// });
-		slack.postNotificationToSlack("New Service Request created by " + user.getUsername(), request.object);
+		slack.postNotificationToSlack("New report submitted by " + user.getUsername(), request.object);
 	// }
 });
