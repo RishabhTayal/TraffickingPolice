@@ -28,6 +28,7 @@ class ReportViewController: XLFormViewController {
         static let Url = "url"
         static let ZipCode = "zipCode"
         //        static let TextView = "textView"
+        static let Gender = "gender"
         static let Location = "location"
         static let Notes = "notes"
     }
@@ -115,6 +116,11 @@ class ReportViewController: XLFormViewController {
         row.selectorOptions = ["0-10", "11-18", "19-25", "26-35", "36-50"]
         section.addFormRow(row)
         
+        //Gender
+        row = XLFormRowDescriptor(tag: Tags.Gender, rowType: XLFormRowDescriptorTypeSelectorSegmentedControl, title: "Gender")
+        row.selectorOptions = ["Male", "Female", "Multiple"]
+        section.addFormRow(row)
+        
         // Zip Code
         row = XLFormRowDescriptor(tag: Tags.ZipCode, rowType: XLFormRowDescriptorTypeZipCode, title: "Zip Code")
         row.cellConfig.setObject(NSTextAlignment.Right.rawValue, forKey: "textField.textAlignment")
@@ -128,12 +134,14 @@ class ReportViewController: XLFormViewController {
         section = XLFormSectionDescriptor.formSectionWithTitle("Location")
         form.addFormSection(section)
         
+        //Location
         row = XLFormRowDescriptor(tag: Tags.Location, rowType: XLFormRowDescriptorTypeBooleanSwitch, title: "Location")
         section.addFormRow(row)
         
         section = XLFormSectionDescriptor.formSectionWithTitle("Images")
         form.addFormSection(section)
         
+        //Image
         row = XLFormRowDescriptor(tag: Tags.Image, rowType: XLFormRowDescriptorTypeImage, title: "Image")
         row.value = UIImage(named: "default_avatar")
         let frame = CGRectMake(0, 0, 180, 180)
@@ -143,7 +151,7 @@ class ReportViewController: XLFormViewController {
         section = XLFormSectionDescriptor.formSection()
         form.addFormSection(section)
         
-        // TextView
+        // Notes
         row = XLFormRowDescriptor(tag: Tags.Notes, rowType: XLFormRowDescriptorTypeTextView)
         row.cellConfigAtConfigure["textView.placeholder"] = "Notes"
         section.addFormRow(row)
