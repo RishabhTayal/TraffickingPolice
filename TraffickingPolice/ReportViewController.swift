@@ -56,7 +56,7 @@ class ReportViewController: XLFormViewController {
         let object = PFObject(className: "Reported")
         for key in form.formValues().keys {
             if let image: UIImage = form.formValues()[key] as? UIImage {
-                if  image != UIImage(named: "default_avatar")  {
+                if  image != UIImage(named: "default_avatar")  { 
                     let imageData = UIImagePNGRepresentation(image)
                     let imageFile = PFFile(name: "image.png", data: imageData!)
                     object.setObject(imageFile!, forKey: key as! String)
