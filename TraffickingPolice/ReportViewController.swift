@@ -14,7 +14,7 @@ import MBProgressHUD
 class ReportViewController: XLFormViewController {
     
     private struct Tags {
-        static let Name = "name"
+        static let Reason = "reason"
         static let Email = "email"
         static let Twitter = "twitter"
         static let Number = "number"
@@ -27,10 +27,11 @@ class ReportViewController: XLFormViewController {
         static let Phone = "phone"
         static let Url = "url"
         static let ZipCode = "zipCode"
+        static let ActivityType = "activityType"
         //        static let TextView = "textView"
         static let Gender = "gender"
         static let Location = "location"
-        static let Notes = "notes"
+        static let Comments = "comments"
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -101,15 +102,17 @@ class ReportViewController: XLFormViewController {
         form = XLFormDescriptor(title: "Text Fields")
         form.assignFirstResponderOnShow = true
         
-        section = XLFormSectionDescriptor.formSectionWithTitle("")
-        //        section.footerTitle = "This is a long text that will appear on section footer"
+        section = XLFormSectionDescriptor.formSectionWithTitle("Describe the reason you are reporting")
         form.addFormSection(section)
         
-        // Name
-        row = XLFormRowDescriptor(tag: Tags.Name, rowType: XLFormRowDescriptorTypeName, title: "Name")
+        // Reason
+        row = XLFormRowDescriptor(tag: Tags.Reason, rowType: XLFormRowDescriptorTypeTextView)
+        row.cellConfig.setObject("eg. I saw a young girl, no belongings and dressed for summertime instead of rain.", forKey: "textView.placeholder")
         row.required = true
-        row.cellConfig.setObject(NSTextAlignment.Right.rawValue, forKey: "textField.textAlignment")
         section.addFormRow(row)
+        
+        section = XLFormSectionDescriptor.formSectionWithTitle("")
+        form.addFormSection(section)
         
         // Age
         row = XLFormRowDescriptor(tag: Tags.PickerView, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"Age")
@@ -131,6 +134,12 @@ class ReportViewController: XLFormViewController {
         row.cellConfig.setObject(NSTextAlignment.Right.rawValue, forKey: "textField.textAlignment")
         section.addFormRow(row)
         
+        //Activity
+        row = XLFormRowDescriptor(tag: Tags.ActivityType, rowType: XLFormRowDescriptorTypeSelectorPickerView, title: "Activity Type")
+        row.selectorOptions = ["Solicitation", "Exploitation", "Under Age", "Other"]
+        row.required = true
+        section.addFormRow(row)
+        
         section = XLFormSectionDescriptor.formSectionWithTitle("Location")
         form.addFormSection(section)
         
@@ -148,12 +157,12 @@ class ReportViewController: XLFormViewController {
         row.cellConfig.setObject(NSValue(CGRect: frame), forKey: "imageView.frame")
         section.addFormRow(row)
         
-        section = XLFormSectionDescriptor.formSection()
+        section = XLFormSectionDescriptor.formSectionWithTitle("Comments")
         form.addFormSection(section)
         
         // Notes
-        row = XLFormRowDescriptor(tag: Tags.Notes, rowType: XLFormRowDescriptorTypeTextView)
-        row.cellConfigAtConfigure["textView.placeholder"] = "Notes"
+        row = XLFormRowDescriptor(tag: Tags.Comments, rowType: XLFormRowDescriptorTypeTextView)
+        row.cellConfigAtConfigure["textView.placeholder"] = "Comments"
         section.addFormRow(row)
         
         self.form = form
