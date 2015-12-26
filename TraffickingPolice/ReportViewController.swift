@@ -43,7 +43,6 @@ class ReportViewController: XLFormViewController {
     }
     
     func savePressed(button: UIBarButtonItem){
-        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         let validationErrors : Array<NSError> = formValidationErrors() as! Array<NSError>
         if (validationErrors.count > 0) {
             print(validationErrors.first?.localizedDescription)
@@ -53,9 +52,8 @@ class ReportViewController: XLFormViewController {
             self.presentViewController(alert, animated: true, completion: nil)
             return
         }
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         tableView.endEditing(true)
-        print(self.form.formValues())
-        
         let object = PFObject(className: "Reported")
         for key in form.formValues().keys {
             if let image: UIImage = form.formValues()[key] as? UIImage {
