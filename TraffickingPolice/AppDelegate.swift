@@ -56,16 +56,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let sb = UIStoryboard(name: "Main", bundle: nil)
         let vc = sb.instantiateViewControllerWithIdentifier("MainViewController") as! MainViewController
         vc.title = "Report"
-        vc.tabBarItem.image = UIImage(named: "red-light-bulb-hi")
+        vc.tabBarItem.image = UIImage(named: "ic_lightbulb_outline")
         let nav1 = UINavigationController(rootViewController: vc)
         
         let vc2 = sb.instantiateViewControllerWithIdentifier("ReportedViewController") as! ReportedViewController
         vc2.title = "Reported"
+        vc2.tabBarItem.image = UIImage(named: "ic_list")
         let nav2 = UINavigationController(rootViewController: vc2)
         
         let vc3 = sb.instantiateViewControllerWithIdentifier("InstructionsViewController") as! InstructionsViewController
         vc3.title = "Instructions"
-        vc3.tabBarItem.image = UIImage(named: "letterIicon4")
+        vc3.tabBarItem.image = UIImage(named: "ic_info_outline")
         let nav3 = UINavigationController(rootViewController: vc3)
         
         let tab: UITabBarController = UITabBarController()
