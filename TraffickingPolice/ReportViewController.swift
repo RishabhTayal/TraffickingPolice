@@ -56,11 +56,12 @@ class ReportViewController: XLFormViewController {
         let object = PFObject(className: "Reported")
         for key in form.formValues().keys {
             if let image: UIImage = form.formValues()[key] as? UIImage {
-                print(image)
-                let imageData = UIImagePNGRepresentation(image)
-                let imageFile = PFFile(name: "image.png", data: imageData!)
-                object.setObject(imageFile!, forKey: key as! String)
-            } else if key == Tags.Location {
+                if  image != UIImage(named: "default_avatar")  {
+                    let imageData = UIImagePNGRepresentation(image)
+                    let imageFile = PFFile(name: "image.png", data: imageData!)
+                    object.setObject(imageFile!, forKey: key as! String)
+                }
+            } else  if key == Tags.Location {
                 if let value = form.formValues()[key] as? Bool {
                     if value {
                         object.setObject(currentLocation!, forKey: key as! String)
@@ -87,8 +88,8 @@ class ReportViewController: XLFormViewController {
         var section : XLFormSectionDescriptor
         var row : XLFormRowDescriptor
         
-        form = XLFormDescriptor(title: "Text Fields")
-        form.assignFirstResponderOnShow = true
+        form = XLFormDescriptor()
+        form.addAsteriskToRequiredRowsTitle = true
         
         section = XLFormSectionDescriptor.formSectionWithTitle("Describe the reason you are reporting")
         form.addFormSection(section)
@@ -162,10 +163,9 @@ class ReportViewController: XLFormViewController {
             }
         }
         if formRow.tag == Tags.Location {
-            if let newValue = newValue as? Bool {
-                print(newValue)
+            if let locationAdded = newValue as? Bool {
                 let section = formRow.sectionDescriptor
-                if newValue {
+                if locationAdded {
                     PFGeoPoint.geoPointForCurrentLocationInBackground({ (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
                         if let geoPoint = geoPoint {
                             self.currentLocation = geoPoint
@@ -175,7 +175,6 @@ class ReportViewController: XLFormViewController {
                             })
                         }
                     })
-                    
                 } else {
                     section.footerTitle = nil
                 }

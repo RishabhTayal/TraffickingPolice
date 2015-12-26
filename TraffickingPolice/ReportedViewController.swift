@@ -58,7 +58,7 @@ class ReportedViewController: UIViewController, UITableViewDataSource, UITableVi
             cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         }
         let object = datasourceArray[indexPath.row]
-        cell?.textLabel?.text = object["name"] as? String
+        cell?.textLabel?.text = object["reason"] as? String
         return cell!
     }
     
