@@ -171,13 +171,8 @@ class ReportViewController: XLFormViewController {
                     PFGeoPoint.geoPointForCurrentLocationInBackground({ (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
                         if let geoPoint = geoPoint {
                             self.currentLocation = geoPoint
-                            AppHelper.getDisplayLocationFromLocation(geoPoint, completion: { (placemark) -> Void in
-                                
-                                if let city = placemark.locality {
-                                    section.footerTitle = city
-                                } else {
-                                    section.footerTitle = "Location added"
-                                }
+                            AppHelper.getDisplayLocationFromLocation(geoPoint, completion: { (locationString) -> Void in
+                                section.footerTitle = locationString
                                 self.tableView.reloadData()
                             })
                         }

@@ -31,13 +31,9 @@ class ReportedDetailViewController: ReportViewController {
             } else if let location = reportObject[key] as? PFGeoPoint {
                 print("locatiom")
                 row?.value = true
-                AppHelper.getDisplayLocationFromLocation(location, completion: { (placemark) -> Void in
+                AppHelper.getDisplayLocationFromLocation(location, completion: { (locationString) -> Void in
                     let section = row?.sectionDescriptor
-                    if let city = placemark.locality {
-                        section!.footerTitle = city
-                    } else {
-                        section!.footerTitle = "Location added"
-                    }
+                    section?.footerTitle = locationString
                     self.tableView.reloadData()
                 })
             } else if let value = reportObject[key] {

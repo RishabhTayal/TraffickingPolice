@@ -9,11 +9,26 @@
 import Parse
 
 class AppHelper: NSObject {
-    class func getDisplayLocationFromLocation(geoPoint: PFGeoPoint, completion: (placemark: CLPlacemark) -> Void) {
+    class func getDisplayLocationFromLocation(geoPoint: PFGeoPoint, completion: (locationString: String) -> Void) {
         let location = CLLocation(latitude: geoPoint.latitude, longitude: geoPoint.longitude)
         let geoCoder = CLGeocoder()
         geoCoder.reverseGeocodeLocation(location) { (placemark: [CLPlacemark]?, error: NSError?) -> Void in
-            completion(placemark: placemark![0])
+            if let firstPlacemark = placemark!.first {
+                var str = ""
+                if let locality = firstPlacemark.locality {
+                    str = locality
+                }
+                if let administrativeArea = firstPlacemark.administrativeArea {
+                    str = str + ", " + administrativeArea
+                }
+                if str == "" {
+                    completion(locationString: "Location added")
+                } else {
+                    completion(locationString: str)
+                }
+            } else {
+                completion(locationString: "")
+            }
         }
     }
 }
@@ -21,6 +36,5 @@ class AppHelper: NSObject {
 extension UIView {
     func roundView() {
         self.layer.cornerRadius = CGRectGetWidth(self.frame) / 2
-//        self.clipsToBounds = true
     }
 }
