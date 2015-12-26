@@ -23,6 +23,7 @@ class ReportViewController: XLFormViewController {
         static let Decimal = "decimal"
         static let Password = "password"
         static let Image = "image"
+        static let SecondImage = "secondImage"
         static let Phone = "phone"
         static let Url = "url"
         static let ZipCode = "zipCode"
@@ -35,6 +36,8 @@ class ReportViewController: XLFormViewController {
         super.init(coder: aDecoder)
         initialForm()
     }
+    
+    var currentLocation: PFGeoPoint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,18 +67,11 @@ class ReportViewController: XLFormViewController {
                 print(image)
                 let imageData = UIImagePNGRepresentation(image)
                 let imageFile = PFFile(name: "image.png", data: imageData!)
-                do {
-                    try imageFile?.save()
-                    object.setObject(imageFile!, forKey: key as! String)
-                } catch {
-                    
-                }
+                object.setObject(imageFile!, forKey: key as! String)
             } else if key == Tags.Location {
                 if let value = form.formValues()[key] as? Bool {
                     if value {
-                        PFGeoPoint.geoPointForCurrentLocationInBackground({ (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
-                            object.setObject(geoPoint!, forKey: key as! String)
-                        })
+                        object.setObject(currentLocation!, forKey: key as! String)
                     }
                 }
             } else {
@@ -121,10 +117,6 @@ class ReportViewController: XLFormViewController {
         row.cellConfig.setObject(NSTextAlignment.Right.rawValue, forKey: "textField.textAlignment")
         section.addFormRow(row)
         
-//        // Integer
-//        row = XLFormRowDescriptor(tag: Tags.Integer, rowType: XLFormRowDescriptorTypeInteger, title: "Integer")
-//        section.addFormRow(row)
-        
         // Phone
         row = XLFormRowDescriptor(tag: Tags.Phone, rowType: XLFormRowDescriptorTypePhone, title: "Phone")
         row.cellConfig.setObject(NSTextAlignment.Right.rawValue, forKey: "textField.textAlignment")
@@ -141,6 +133,8 @@ class ReportViewController: XLFormViewController {
         
         row = XLFormRowDescriptor(tag: Tags.Image, rowType: XLFormRowDescriptorTypeImage, title: "Image")
         row.value = UIImage(named: "default_avatar")
+        let frame = CGRectMake(0, 0, 180, 180)
+        row.cellConfig.setObject(NSValue(CGRect: frame), forKey: "imageView.frame")
         section.addFormRow(row)
         
         section = XLFormSectionDescriptor.formSection()
@@ -157,10 +151,11 @@ class ReportViewController: XLFormViewController {
     override func formRowDescriptorValueHasChanged(formRow: XLFormRowDescriptor!, oldValue: AnyObject!, newValue: AnyObject!) {
         super.formRowDescriptorValueHasChanged(formRow, oldValue: oldValue, newValue: newValue)
         if formRow.tag == Tags.Image {
-            let newRow = formRow.copy() as! XLFormRowDescriptor
-            newRow.tag = "secondAlert"
-            //            newRow.title = "Second Alert"
-            form.addFormRow(newRow, afterRow:formRow)
+            if form.formRowWithTag(Tags.SecondImage) == nil {
+                let newRow = formRow.copy() as! XLFormRowDescriptor
+                newRow.tag = Tags.SecondImage
+                form.addFormRow(newRow, afterRow:formRow)
+            }
         }
         if formRow.tag == Tags.Location {
             if let newValue = newValue as? Bool {
@@ -169,6 +164,7 @@ class ReportViewController: XLFormViewController {
                 if newValue {
                     PFGeoPoint.geoPointForCurrentLocationInBackground({ (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
                         if let geoPoint = geoPoint {
+                            self.currentLocation = geoPoint
                             AppHelper.getDisplayLocationFromLocation(geoPoint, completion: { (placemark) -> Void in
                                 
                                 if let city = placemark.locality {
@@ -187,6 +183,13 @@ class ReportViewController: XLFormViewController {
                 tableView.reloadData()
             }
         }
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if form.formRowAtIndex(indexPath)?.tag == Tags.Image || form.formRowAtIndex(indexPath)?.tag == Tags.SecondImage {
+            return 200
+        }
+        return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
     }
 }
 
