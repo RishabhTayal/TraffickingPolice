@@ -19,7 +19,7 @@ class ReportViewController: XLFormViewController {
         static let Twitter = "twitter"
         static let Number = "number"
         static let Integer = "integer"
-        static let PickerView = "selectorPickerView"
+        static let PickerView = "age"
         static let Decimal = "decimal"
         static let Password = "password"
         static let Image = "image"
@@ -27,7 +27,7 @@ class ReportViewController: XLFormViewController {
         static let Phone = "phone"
         static let Url = "url"
         static let ZipCode = "zipCode"
-        static let TextView = "textView"
+//        static let TextView = "textView"
         static let Location = "location"
         static let Notes = "notes"
     }
@@ -141,7 +141,7 @@ class ReportViewController: XLFormViewController {
         form.addFormSection(section)
         
         // TextView
-        row = XLFormRowDescriptor(tag: Tags.TextView, rowType: XLFormRowDescriptorTypeTextView)
+        row = XLFormRowDescriptor(tag: Tags.Notes, rowType: XLFormRowDescriptorTypeTextView)
         row.cellConfigAtConfigure["textView.placeholder"] = "Notes"
         section.addFormRow(row)
         
