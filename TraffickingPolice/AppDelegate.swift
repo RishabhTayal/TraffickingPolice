@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             showMainScreen()
         }
         
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.redColor()], forState: .Selected)
+//        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.redColor()], forState: .Selected)
         
         return true
     }
