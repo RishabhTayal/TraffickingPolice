@@ -36,7 +36,6 @@ class ReportViewController: XLFormViewController {
         super.viewDidLoad()
         
         self.title = "Report"
-        
         if !form.disabled {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Report", style: .Plain, target: self, action: "savePressed:")
         }
@@ -158,6 +157,7 @@ class ReportViewController: XLFormViewController {
             if form.formRowWithTag(Tags.SecondImage) == nil {
                 let newRow = formRow.copy() as! XLFormRowDescriptor
                 newRow.tag = Tags.SecondImage
+                newRow.value = UIImage(named: "default_avatar")
                 form.addFormRow(newRow, afterRow:formRow)
             }
         }
