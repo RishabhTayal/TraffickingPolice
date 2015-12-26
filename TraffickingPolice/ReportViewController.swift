@@ -15,20 +15,11 @@ class ReportViewController: XLFormViewController {
     
     private struct Tags {
         static let Reason = "reason"
-        static let Email = "email"
-        static let Twitter = "twitter"
-        static let Number = "number"
-        static let Integer = "integer"
-        static let PickerView = "age"
-        static let Decimal = "decimal"
-        static let Password = "password"
+        static let Age = "age"
         static let Image = "image"
         static let SecondImage = "secondImage"
-        static let Phone = "phone"
-        static let Url = "url"
         static let ZipCode = "zipCode"
         static let ActivityType = "activityType"
-        //        static let TextView = "textView"
         static let Gender = "gender"
         static let Location = "location"
         static let Comments = "comments"
@@ -115,7 +106,7 @@ class ReportViewController: XLFormViewController {
         form.addFormSection(section)
         
         // Age
-        row = XLFormRowDescriptor(tag: Tags.PickerView, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"Age")
+        row = XLFormRowDescriptor(tag: Tags.Age, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"Age")
         row.selectorOptions = ["0-10", "11-18", "19-25", "26-35", "36-50"]
         section.addFormRow(row)
         
@@ -126,11 +117,6 @@ class ReportViewController: XLFormViewController {
         
         // Zip Code
         row = XLFormRowDescriptor(tag: Tags.ZipCode, rowType: XLFormRowDescriptorTypeZipCode, title: "Zip Code")
-        row.cellConfig.setObject(NSTextAlignment.Right.rawValue, forKey: "textField.textAlignment")
-        section.addFormRow(row)
-        
-        // Phone
-        row = XLFormRowDescriptor(tag: Tags.Phone, rowType: XLFormRowDescriptorTypePhone, title: "Phone")
         row.cellConfig.setObject(NSTextAlignment.Right.rawValue, forKey: "textField.textAlignment")
         section.addFormRow(row)
         
