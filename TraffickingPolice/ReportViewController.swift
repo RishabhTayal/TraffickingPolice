@@ -27,7 +27,7 @@ class ReportViewController: XLFormViewController {
         static let Phone = "phone"
         static let Url = "url"
         static let ZipCode = "zipCode"
-//        static let TextView = "textView"
+        //        static let TextView = "textView"
         static let Location = "location"
         static let Notes = "notes"
     }
@@ -44,7 +44,9 @@ class ReportViewController: XLFormViewController {
         
         self.title = "Report"
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Report", style: .Plain, target: self, action: "savePressed:")
+        if !form.disabled {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Report", style: .Plain, target: self, action: "savePressed:")
+        }
     }
     
     func savePressed(button: UIBarButtonItem){
@@ -78,6 +80,7 @@ class ReportViewController: XLFormViewController {
                 object.setObject(form.formValues()[key]!, forKey: key as! String)
             }
         }
+        object.setObject(PFUser.currentUser()!, forKey: "owner")
         object.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             MBProgressHUD.hideHUDForView(self.view, animated: true)
             let alert = UIAlertController(title: "Activity reported successfully", message: "", preferredStyle: .Alert)

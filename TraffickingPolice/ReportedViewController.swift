@@ -35,6 +35,7 @@ class ReportedViewController: UIViewController, UITableViewDataSource, UITableVi
     func refreshData() {
         let query = PFQuery(className: "Reported")
         query.orderByDescending("createdAt")
+        query.whereKey("owner", equalTo: PFUser.currentUser()!)
         query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) -> Void in
             self.refreshControl.endRefreshing()
             if let objects = objects {
@@ -54,9 +55,18 @@ class ReportedViewController: UIViewController, UITableViewDataSource, UITableVi
         var cell: UITableViewCell? = tableView.dequeueReusableCellWithIdentifier("cell")
         if cell == nil {
             cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
+            cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         }
         let object = datasourceArray[indexPath.row]
         cell?.textLabel?.text = object["name"] as? String
         return cell!
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        let vc = storyboard?.instantiateViewControllerWithIdentifier("ReportedDetailViewController") as! ReportedDetailViewController
+        vc.form.disabled = true
+        vc.reportObject = datasourceArray[indexPath.row]
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

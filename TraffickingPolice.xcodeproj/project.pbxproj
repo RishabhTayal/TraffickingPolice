@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6941F2531C2E597300238B8D /* ReportedDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6941F2521C2E597300238B8D /* ReportedDetailViewController.swift */; };
 		695BB7101C2A00E100C92376 /* Instructions.html in Resources */ = {isa = PBXBuildFile; fileRef = 695BB70F1C2A00E100C92376 /* Instructions.html */; };
 		695BB7141C2A139700C92376 /* AppHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695BB7131C2A139700C92376 /* AppHelper.swift */; };
 		695BB7161C2A541100C92376 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695BB7151C2A541100C92376 /* MainViewController.swift */; };
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6941F2521C2E597300238B8D /* ReportedDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportedDetailViewController.swift; sourceTree = "<group>"; };
 		695BB70F1C2A00E100C92376 /* Instructions.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Instructions.html; sourceTree = "<group>"; };
 		695BB7131C2A139700C92376 /* AppHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppHelper.swift; sourceTree = "<group>"; };
 		695BB7151C2A541100C92376 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = ../MainViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				69F445631C28CCE800F4A2DA /* InstructionsViewController.swift */,
 				695BB7151C2A541100C92376 /* MainViewController.swift */,
 				69F445611C28CC0900F4A2DA /* ReportedViewController.swift */,
+				6941F2521C2E597300238B8D /* ReportedDetailViewController.swift */,
 				69EE72051C28C6F4009C1957 /* ReportViewController.swift */,
 				695BB7131C2A139700C92376 /* AppHelper.swift */,
 				69F4455F1C28C7AF00F4A2DA /* LoginViewController.swift */,
@@ -333,6 +336,7 @@
 				69F445601C28C7AF00F4A2DA /* LoginViewController.swift in Sources */,
 				695BB7141C2A139700C92376 /* AppHelper.swift in Sources */,
 				69EE72061C28C6F4009C1957 /* ReportViewController.swift in Sources */,
+				6941F2531C2E597300238B8D /* ReportedDetailViewController.swift in Sources */,
 				69EE72041C28C6F4009C1957 /* AppDelegate.swift in Sources */,
 				69F445621C28CC0900F4A2DA /* ReportedViewController.swift in Sources */,
 				69F445641C28CCE800F4A2DA /* InstructionsViewController.swift in Sources */,
