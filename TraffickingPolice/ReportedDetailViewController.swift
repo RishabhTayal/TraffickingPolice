@@ -26,6 +26,7 @@ class ReportedDetailViewController: ReportViewController {
                 print("file")
                 file.getDataInBackgroundWithBlock({ (data: NSData?, error: NSError?) -> Void in
                     row?.value = UIImage(data: data!)
+                    self.tableView.reloadData()
                 })
             } else if let location = reportObject[key] as? PFGeoPoint {
                 print("locatiom")

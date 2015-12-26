@@ -8,21 +8,17 @@
 
 import UIKit
 import ParseFacebookUtilsV4
+import FBSDKCoreKit
 
 class LoginViewController: UIViewController {
-
+    
     @IBOutlet var loginButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         loginButton.layer.cornerRadius = 5
         // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func loginTapped(sender: AnyObject) {
@@ -34,9 +30,20 @@ class LoginViewController: UIViewController {
                 } else {
                     
                 }
-                let app = UIApplication.sharedApplication().delegate as! AppDelegate
-                app.showMainScreen()
+                
+                let graph: FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "first_name,last_name,name"])
+                graph.startWithCompletionHandler({ (connection: FBSDKGraphRequestConnection!, result: AnyObject!, error: NSError!) -> Void in
+                    if let result = result {
+                        user!["name"] = result["name"]
+                        user?.saveInBackgroundWithBlock(nil)
+                        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+                        app.showMainScreen()
+                    }
+                })
             } else {
+                let alert = UIAlertController(title: "Could not login", message: "", preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "Dismiss", style: .Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
             }
         }
     }
