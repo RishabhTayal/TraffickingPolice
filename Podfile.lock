@@ -22,6 +22,7 @@ PODS:
     - FBSDKTVOSKit (~> 4.9.0-beta)
     - Parse (~> 1.11)
   - PulsingHalo (0.0.1)
+  - UITableView-NXEmptyView (0.1.7)
   - XLForm (3.1.0)
 
 DEPENDENCIES:
@@ -31,6 +32,7 @@ DEPENDENCIES:
   - Parse
   - ParseFacebookUtilsV4
   - PulsingHalo
+  - UITableView-NXEmptyView
   - XLForm
 
 SPEC CHECKSUMS:
@@ -43,6 +45,7 @@ SPEC CHECKSUMS:
   Parse: 886af46a0a677402f6374bb97ac212e795f70afe
   ParseFacebookUtilsV4: 3cd2d2d69653bad40c8c58131b935c353a0f3f15
   PulsingHalo: 1583823bd6c989fff3469bb417bc42f0d268f98e
+  UITableView-NXEmptyView: 0bc404cfd9c201af518a63240ac4ac4dad2c69c2
   XLForm: 754b061f9f4b249a7ab7548efb22f1b586e26740
 
 COCOAPODS: 0.39.0
