@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import UITableView_NXEmptyView
 
 class ReportedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -42,6 +43,8 @@ class ReportedViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.datasourceArray = objects
                 self.tableView.reloadData()
             }
+            self.tableView.nxEV_emptyView = UIView.emptyViewWithLabel(self.tableView.frame, text: "No reports submitted")
+            self.tableView.nxEV_hideSeparatorLinesWhenShowingEmptyView = true
         }
     }
     
