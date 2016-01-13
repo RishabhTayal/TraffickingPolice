@@ -9,26 +9,30 @@
 import Parse
 
 class AppHelper: NSObject {
-    class func getDisplayLocationFromLocation(geoPoint: PFGeoPoint, completion: (locationString: String) -> Void) {
-        let location = CLLocation(latitude: geoPoint.latitude, longitude: geoPoint.longitude)
-        let geoCoder = CLGeocoder()
-        geoCoder.reverseGeocodeLocation(location) { (placemark: [CLPlacemark]?, error: NSError?) -> Void in
-            if let firstPlacemark = placemark!.first {
-                var str = ""
-                if let locality = firstPlacemark.locality {
-                    str = locality
-                }
-                if let administrativeArea = firstPlacemark.administrativeArea {
-                    str = str + ", " + administrativeArea
-                }
-                if str == "" {
-                    completion(locationString: "Location added")
+    class func getDisplayLocationFromLocation(geoPoint: PFGeoPoint?, completion: (locationString: String) -> Void) {
+        if let geoPoint = geoPoint {
+            let location = CLLocation(latitude: geoPoint.latitude, longitude: geoPoint.longitude)
+            let geoCoder = CLGeocoder()
+            geoCoder.reverseGeocodeLocation(location) { (placemark: [CLPlacemark]?, error: NSError?) -> Void in
+                if let firstPlacemark = placemark!.first {
+                    var str = ""
+                    if let locality = firstPlacemark.locality {
+                        str = locality
+                    }
+                    if let administrativeArea = firstPlacemark.administrativeArea {
+                        str = str + ", " + administrativeArea
+                    }
+                    if str == "" {
+                        completion(locationString: "Location added")
+                    } else {
+                        completion(locationString: str)
+                    }
                 } else {
-                    completion(locationString: str)
+                    completion(locationString: "")
                 }
-            } else {
-                completion(locationString: "")
             }
+        } else {
+            completion(locationString: "")
         }
     }
 }

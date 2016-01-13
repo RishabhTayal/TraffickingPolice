@@ -3,6 +3,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -16,22 +18,41 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3L4-rU-trl">
-                        <rect key="frame" x="58" y="30" width="42" height="21"/>
+                        <rect key="frame" x="58" y="17" width="42" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SrK-s5-UId">
-                        <rect key="frame" x="8" y="18" width="40" height="42"/>
+                        <rect key="frame" x="8" y="18" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="47E-fj-vhe"/>
+                            <constraint firstAttribute="height" constant="42" id="vy2-iq-bLc"/>
+                            <constraint firstAttribute="width" secondItem="SrK-s5-UId" secondAttribute="height" id="z2m-O9-95N"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="vy2-iq-bLc"/>
+                            </mask>
+                        </variation>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OHw-BV-CxW">
+                        <rect key="frame" x="58" y="38" width="33" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="SrK-s5-UId" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="11" id="0tY-0n-bKg"/>
+                    <constraint firstItem="OHw-BV-CxW" firstAttribute="top" secondItem="SrK-s5-UId" secondAttribute="centerY" id="6YN-3n-EZS"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="OHw-BV-CxW" secondAttribute="bottom" constant="-7.5" id="8Is-AV-U1Z"/>
                     <constraint firstItem="3L4-rU-trl" firstAttribute="leading" secondItem="SrK-s5-UId" secondAttribute="trailing" constant="10" id="Gsa-qs-Nvb"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="SrK-s5-UId" secondAttribute="bottom" constant="10" id="Izf-QR-zhC"/>
+                    <constraint firstItem="3L4-rU-trl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="22" id="JEW-mf-88E"/>
+                    <constraint firstItem="OHw-BV-CxW" firstAttribute="leading" secondItem="3L4-rU-trl" secondAttribute="leading" id="Nzg-4U-SCQ"/>
                     <constraint firstItem="SrK-s5-UId" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="QWi-cJ-8rv"/>
+                    <constraint firstItem="SrK-s5-UId" firstAttribute="centerY" secondItem="3L4-rU-trl" secondAttribute="bottom" id="Tbb-E0-1Lw"/>
                     <constraint firstItem="3L4-rU-trl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="22" id="b15-dj-LQC"/>
                     <constraint firstItem="SrK-s5-UId" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="kOf-A7-d9E"/>
                     <constraint firstAttribute="bottomMargin" secondItem="3L4-rU-trl" secondAttribute="bottom" constant="17.5" id="mK2-UU-cI6"/>
@@ -40,12 +61,18 @@
                 <variation key="default">
                     <mask key="constraints">
                         <exclude reference="0tY-0n-bKg"/>
+                        <exclude reference="kOf-A7-d9E"/>
+                        <exclude reference="JEW-mf-88E"/>
+                        <exclude reference="b15-dj-LQC"/>
+                        <exclude reference="mK2-UU-cI6"/>
+                        <exclude reference="8Is-AV-U1Z"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="mainImageView" destination="SrK-s5-UId" id="hBo-pv-jNF"/>
                 <outlet property="nameLabel" destination="3L4-rU-trl" id="y0G-6n-CeS"/>
+                <outlet property="subTitleLabel" destination="OHw-BV-CxW" id="dMJ-Aj-I0s"/>
             </connections>
             <point key="canvasLocation" x="566" y="189.5"/>
         </tableViewCell>

@@ -31,6 +31,8 @@ class ReportedViewController: UIViewController {
         tableView.addSubview(refreshControl)
         
         tableView.registerNib(UINib(nibName: "ReportedTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 64
         
         refreshData()
     }
@@ -38,7 +40,7 @@ class ReportedViewController: UIViewController {
     func refreshData() {
         let query = PFQuery(className: "Reported")
         query.orderByDescending("createdAt")
-//        query.whereKey("owner", equalTo: PFUser.currentUser()!)
+        //        query.whereKey("owner", equalTo: PFUser.currentUser()!)
         query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) -> Void in
             self.refreshControl.endRefreshing()
             if let objects = objects {
@@ -60,13 +62,18 @@ extension ReportedViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: ReportedTableViewCell = tableView.dequeueReusableCellWithIdentifier("cell") as! ReportedTableViewCell
-//        if cell == nil {
-//            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
-//            cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-//        }
+        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         let object = datasourceArray[indexPath.row]
         cell.nameLabel.text = object["reason"] as? String
-        cell.imageView?.image = 
+        let location = object["location"] as? PFGeoPoint
+        AppHelper.getDisplayLocationFromLocation(location) { (locationString) -> Void in
+            cell.subTitleLabel.text = locationString
+        }
+        let file = object["image"] as! PFFile
+        file.getDataInBackgroundWithBlock { (data: NSData?, error: NSError?) -> Void in
+            cell.mainImageView.image = UIImage(data: data!)
+        }
+        
         return cell
     }
     
