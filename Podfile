@@ -12,6 +12,7 @@ pod 'Fabric'
 pod 'Crashlytics'
 pod 'PulsingHalo'
 pod 'UITableView-NXEmptyView'
+pod 'AFNetworking'
 
 post_install do |installer|
     installer.pods_project.targets.each do |target|

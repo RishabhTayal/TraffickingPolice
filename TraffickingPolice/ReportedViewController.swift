@@ -10,7 +10,7 @@ import UIKit
 import Parse
 import UITableView_NXEmptyView
 
-class ReportedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ReportedViewController: UIViewController {
     
     var tableView: UITableView!
     var datasourceArray: [PFObject] = []
@@ -25,10 +25,14 @@ class ReportedViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView = UITableView(frame: self.view.frame, style: .Grouped)
         tableView.dataSource = self
         tableView.delegate = self
-        self.view.addSubview(tableView)
+        view.addSubview(tableView)
         
         refreshControl.addTarget(self, action: "refreshData", forControlEvents: .ValueChanged)
-        self.tableView.addSubview(refreshControl)
+        tableView.addSubview(refreshControl)
+        
+        tableView.registerNib(UINib(nibName: "ReportedTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 64
         
         refreshData()
     }
@@ -36,7 +40,7 @@ class ReportedViewController: UIViewController, UITableViewDataSource, UITableVi
     func refreshData() {
         let query = PFQuery(className: "Reported")
         query.orderByDescending("createdAt")
-        query.whereKey("owner", equalTo: PFUser.currentUser()!)
+        //        query.whereKey("owner", equalTo: PFUser.currentUser()!)
         query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) -> Void in
             self.refreshControl.endRefreshing()
             if let objects = objects {
@@ -47,7 +51,9 @@ class ReportedViewController: UIViewController, UITableViewDataSource, UITableVi
             self.tableView.nxEV_hideSeparatorLinesWhenShowingEmptyView = true
         }
     }
-    
+}
+
+extension ReportedViewController: UITableViewDataSource, UITableViewDelegate {
     //MARK: UITableView Datasource
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,14 +61,20 @@ class ReportedViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: UITableViewCell? = tableView.dequeueReusableCellWithIdentifier("cell")
-        if cell == nil {
-            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
-            cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-        }
+        let cell: ReportedTableViewCell = tableView.dequeueReusableCellWithIdentifier("cell") as! ReportedTableViewCell
+        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         let object = datasourceArray[indexPath.row]
-        cell?.textLabel?.text = object["reason"] as? String
-        return cell!
+        cell.nameLabel.text = object["reason"] as? String
+        let location = object["location"] as? PFGeoPoint
+        AppHelper.getDisplayLocationFromLocation(location) { (locationString) -> Void in
+            cell.subTitleLabel.text = locationString
+        }
+        let file = object["image"] as! PFFile
+        file.getDataInBackgroundWithBlock { (data: NSData?, error: NSError?) -> Void in
+            cell.mainImageView.image = UIImage(data: data!)
+        }
+        
+        return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
