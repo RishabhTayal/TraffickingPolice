@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import UITableView_NXEmptyView
+import AFNetworking
 
 class ReportedViewController: UIViewController {
     
@@ -69,11 +70,11 @@ extension ReportedViewController: UITableViewDataSource, UITableViewDelegate {
         AppHelper.getDisplayLocationFromLocation(location) { (locationString) -> Void in
             cell.subTitleLabel.text = locationString
         }
-        let file = object["image"] as! PFFile
-        file.getDataInBackgroundWithBlock { (data: NSData?, error: NSError?) -> Void in
-            cell.mainImageView.image = UIImage(data: data!)
+        if let file = object["image"] as? PFFile {
+            cell.mainImageView.setImageWithURL(NSURL(string: file.url!)!)
+        } else {
+            cell.mainImageView.image = UIImage(named: "default_avatar")
         }
-        
         return cell
     }
     
