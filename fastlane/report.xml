@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="fastlane">
+  <testsuite name="run">
+    
+      
+      <testcase name="0: Verifying required fastlane version" time="0.000215">
+        
+      </testcase>
+    
+      
+      <testcase name="1: default_platform" time="0.000111">
+        
+      </testcase>
+    
+      
+      <testcase name="2: cocoapods" time="6.9599">
+        
+      </testcase>
+    
+      
+      <testcase name="3: sigh" time="85.369687">
+        
+      </testcase>
+    
+      
+      <testcase name="4: gym" time="81.115196">
+        
+      </testcase>
+    
+      
+      <testcase name="5: deliver" time="55.76456">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
