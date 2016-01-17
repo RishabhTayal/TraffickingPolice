@@ -13,7 +13,7 @@ class ReportedTableViewCell: UITableViewCell {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var subTitleLabel: UILabel!
     @IBOutlet var mainImageView: UIImageView!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -24,5 +24,5 @@ class ReportedTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }

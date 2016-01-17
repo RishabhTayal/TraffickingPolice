@@ -74,7 +74,7 @@ class Snapshot: NSObject {
 
     class func waitForLoadingIndicatorToDisappear() {
         let query = XCUIApplication().statusBars.childrenMatchingType(.Other).elementBoundByIndex(1).childrenMatchingType(.Other)
-        
+
         while query.count > 4 {
             sleep(1)
             print("Number of Elements in Status Bar: \(query.count)... waiting for status bar to disappear")
