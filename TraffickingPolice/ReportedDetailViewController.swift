@@ -10,15 +10,15 @@ import UIKit
 import Parse
 
 class ReportedDetailViewController: ReportViewController {
-    
+
     var reportObject: PFObject!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         configureValues()
     }
-    
+
     func configureValues() {
         for key in reportObject.allKeys {
             let row = form.formRowWithTag(key)
@@ -38,14 +38,14 @@ class ReportedDetailViewController: ReportViewController {
                 })
             } else if let value = reportObject[key] {
                 if value is NSNull {
-                    
+
                 } else {
                     row?.value = value
                 }
             }
         }
     }
-    
+
     override func initialForm() {
         super.initialForm()
         form.disabled = true

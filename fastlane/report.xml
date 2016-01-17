@@ -3,32 +3,32 @@
   <testsuite name="run">
     
       
-      <testcase name="0: Verifying required fastlane version" time="0.000215">
+      <testcase name="0: update_fastlane" time="4.190345">
         
       </testcase>
     
       
-      <testcase name="1: default_platform" time="0.000111">
+      <testcase name="1: Verifying required fastlane version" time="0.000181">
         
       </testcase>
     
       
-      <testcase name="2: cocoapods" time="6.9599">
+      <testcase name="2: default_platform" time="0.000139">
         
       </testcase>
     
       
-      <testcase name="3: sigh" time="85.369687">
+      <testcase name="3: cocoapods" time="11.742399">
         
       </testcase>
     
       
-      <testcase name="4: gym" time="81.115196">
+      <testcase name="4: snapshot" time="101.771843">
         
       </testcase>
     
       
-      <testcase name="5: deliver" time="55.76456">
+      <testcase name="5: frameit" time="5.0065">
         
       </testcase>
     

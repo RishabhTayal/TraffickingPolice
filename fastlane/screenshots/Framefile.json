@@ -1,0 +1,36 @@
+{
+  "default": {
+     "title": {
+      "color": "#545454"
+    },
+    // "background": "./background.jpg",
+    "padding": 50
+  },
+
+  "data": [
+    {
+      "filter": "0Report",
+      "keyword": {
+        "color": "#d21559"
+      }
+    },
+    {
+      "filter": "0-0Report",
+      "keyword": {
+        "color": "#feb909"
+      }
+    },
+    {
+      "filter": "Sharing",
+      "keyword": {
+        "color": "#aa4dbc"
+      }
+    },
+    {
+      "filter": "Styling",
+      "keyword": {
+        "color": "#31bb48"
+      }
+    }
+  ]
+}

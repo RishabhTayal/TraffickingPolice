@@ -41,7 +41,7 @@ extension UIView {
     func roundView() {
         self.layer.cornerRadius = CGRectGetWidth(self.frame) / 2
     }
-    
+
     class func emptyViewWithLabel(frame: CGRect, text: String) -> UIView {
         let label = UILabel(frame: frame)
         label.textColor = UIColor.lightGrayColor()
