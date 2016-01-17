@@ -11,26 +11,26 @@ import ParseFacebookUtilsV4
 import FBSDKCoreKit
 
 class LoginViewController: UIViewController {
-    
+
     @IBOutlet var loginButton: UIButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         loginButton.layer.cornerRadius = 5
         // Do any additional setup after loading the view.
     }
-    
+
     @IBAction func loginTapped(sender: AnyObject) {
         let permissions = ["public_profile"]
         PFFacebookUtils.logInInBackgroundWithReadPermissions(permissions) { (user: PFUser?, error: NSError?) -> Void in
             if user != nil {
                 if user!.isNew {
-                    
+
                 } else {
-                    
+
                 }
-                
+
                 let graph: FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "first_name,last_name,name"])
                 graph.startWithCompletionHandler({ (connection: FBSDKGraphRequestConnection!, result: AnyObject!, error: NSError!) -> Void in
                     if let result = result {
