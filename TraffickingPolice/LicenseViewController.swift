@@ -31,7 +31,7 @@ class LicenseViewController: UIViewController {
             
         }
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelTappe:")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelTapped:")
     }
     
     func cancelTapped(sender: AnyObject) {
