@@ -8,7 +8,7 @@
 
 import UIKit
 import Parse
-import ParseFacebookUtilsV4
+//import ParseFacebookUtilsV4
 import Fabric
 import Crashlytics
 
@@ -29,11 +29,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if takingScreenshots {
             showMainScreen()
         } else {
-            if PFUser.currentUser() == nil {
-                showLoginScreen()
-            } else {
+//            if PFUser.currentUser() == nil {
+//                showLoginScreen()
+//            } else {
                 showMainScreen()
-            }
+//            }
         }
 
         //        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.redColor()], forState: .Selected)
@@ -49,12 +49,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKAppEvents.activateApp()
     }
 
-    func showLoginScreen() {
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
-        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.rootViewController = vc
-        self.window?.makeKeyAndVisible()
-    }
+//    func showLoginScreen() {
+//        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
+//        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+//        self.window?.rootViewController = vc
+//        self.window?.makeKeyAndVisible()
+//    }
 
     func showMainScreen() {
 
