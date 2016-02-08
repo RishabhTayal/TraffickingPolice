@@ -23,7 +23,6 @@
 		69EE720B1C28C6F4009C1957 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69EE720A1C28C6F4009C1957 /* Assets.xcassets */; };
 		69EE720E1C28C6F4009C1957 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69EE720C1C28C6F4009C1957 /* LaunchScreen.storyboard */; };
 		69EE72191C28C6F4009C1957 /* TraffickingPoliceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EE72181C28C6F4009C1957 /* TraffickingPoliceUITests.swift */; };
-		69F445601C28C7AF00F4A2DA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F4455F1C28C7AF00F4A2DA /* LoginViewController.swift */; };
 		69F445621C28CC0900F4A2DA /* ReportedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F445611C28CC0900F4A2DA /* ReportedViewController.swift */; };
 		69F445641C28CCE800F4A2DA /* InstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F445631C28CCE800F4A2DA /* InstructionsViewController.swift */; };
 		E9C8D87881E22D6C5143AE56 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A2C81FBDCC417C34877F59 /* Pods.framework */; };
@@ -60,7 +59,6 @@
 		69EE72141C28C6F4009C1957 /* TraffickingPoliceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TraffickingPoliceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		69EE72181C28C6F4009C1957 /* TraffickingPoliceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraffickingPoliceUITests.swift; sourceTree = "<group>"; };
 		69EE721A1C28C6F4009C1957 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		69F4455F1C28C7AF00F4A2DA /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		69F445611C28CC0900F4A2DA /* ReportedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportedViewController.swift; sourceTree = "<group>"; };
 		69F445631C28CCE800F4A2DA /* InstructionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionsViewController.swift; sourceTree = "<group>"; };
 		8C989E03C1B9609BABF047F3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -139,7 +137,6 @@
 				69739A021C45ED6B00183BA5 /* Reported */,
 				69EE72051C28C6F4009C1957 /* ReportViewController.swift */,
 				695BB7131C2A139700C92376 /* AppHelper.swift */,
-				69F4455F1C28C7AF00F4A2DA /* LoginViewController.swift */,
 				69EE72231C28C767009C1957 /* Suporting Files */,
 			);
 			path = TraffickingPolice;
@@ -198,6 +195,7 @@
 				C5E1217CA1153F97E7310BA0 /* Copy Pods Resources */,
 				69F445651C293F8C00F4A2DA /* ShellScript */,
 				695BB70E1C29FEB300C92376 /* Build update Script */,
+				7CAB27A31E3C1B3B9F2AAB38 /* Find unused imports */,
 			);
 			buildRules = (
 			);
@@ -332,6 +330,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 02d3f7db22ac1a3e538528547a694d5230eb8278 af6ede98bc0742057c556b0ed733e4c57ae435cd7cc81f516bb2b4e456b7e234";
 		};
+		7CAB27A31E3C1B3B9F2AAB38 /* Find unused imports */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Find unused imports";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/sh \"/Users/rtayal/Library/Application Support/Developer/Shared/Xcode/Plug-ins/xcfui.xcplugin/Contents/Resources/fui_script.sh\" \"/Users/rtayal/Desktop/Personal/TraffickingPolice\"";
+		};
 		C5E1217CA1153F97E7310BA0 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -370,7 +382,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				695BB7161C2A541100C92376 /* MainViewController.swift in Sources */,
-				69F445601C28C7AF00F4A2DA /* LoginViewController.swift in Sources */,
 				695BB7141C2A139700C92376 /* AppHelper.swift in Sources */,
 				69739A071C45EDCD00183BA5 /* ReportedTableViewCell.swift in Sources */,
 				69EE72061C28C6F4009C1957 /* ReportViewController.swift in Sources */,

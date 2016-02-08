@@ -8,7 +8,7 @@
 
 import UIKit
 import Parse
-import ParseFacebookUtilsV4
+//import ParseFacebookUtilsV4
 import Fabric
 import Crashlytics
 
@@ -23,17 +23,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         Parse.setApplicationId("No8pkeg26XXKrFK4mAI5HUCN5qXAXa1hOrxjGk6c",
             clientKey: "pSkWBWYZsfBKHchgBg5Ngh7I55oxqR11UzmluauE")
-        PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
+//        PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
 
         let takingScreenshots = NSUserDefaults.standardUserDefaults().boolForKey("FASTLANE_SNAPSHOT")
         if takingScreenshots {
             showMainScreen()
         } else {
-            if PFUser.currentUser() == nil {
-                showLoginScreen()
-            } else {
+//            if PFUser.currentUser() == nil {
+//                showLoginScreen()
+//            } else {
                 showMainScreen()
-            }
+//            }
         }
 
         //        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.redColor()], forState: .Selected)
@@ -41,20 +41,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
-    }
+//    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+//        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+//    }
+//
+//    func applicationDidBecomeActive(application: UIApplication) {
+//        FBSDKAppEvents.activateApp()
+//    }
 
-    func applicationDidBecomeActive(application: UIApplication) {
-        FBSDKAppEvents.activateApp()
-    }
-
-    func showLoginScreen() {
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
-        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.rootViewController = vc
-        self.window?.makeKeyAndVisible()
-    }
+//    func showLoginScreen() {
+//        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
+//        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+//        self.window?.rootViewController = vc
+//        self.window?.makeKeyAndVisible()
+//    }
 
     func showMainScreen() {
 

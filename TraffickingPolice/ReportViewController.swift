@@ -71,7 +71,7 @@ class ReportViewController: XLFormViewController {
                 object.setObject(form.formValues()[key]!, forKey: key as! String)
             }
         }
-        object.setObject(PFUser.currentUser()!, forKey: "owner")
+//        object.setObject(PFUser.currentUser()!, forKey: "owner")
         object.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             MBProgressHUD.hideHUDForView(self.view, animated: true)
             let alert = UIAlertController(title: "Activity reported successfully", message: "", preferredStyle: .Alert)
