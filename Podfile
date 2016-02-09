@@ -5,7 +5,7 @@ use_frameworks!
 inhibit_all_warnings!
 
 pod 'MBProgressHUD'
-pod 'Parse'
+#pod 'Parse'
 #pod 'ParseFacebookUtilsV4'
 pod 'XLForm'
 pod 'Fabric'

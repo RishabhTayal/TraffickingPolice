@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Parse
+//import Parse
 //import ParseFacebookUtilsV4
 import Fabric
 import Crashlytics
@@ -21,8 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         Fabric.with([Crashlytics.self])
 
-        Parse.setApplicationId("No8pkeg26XXKrFK4mAI5HUCN5qXAXa1hOrxjGk6c",
-            clientKey: "pSkWBWYZsfBKHchgBg5Ngh7I55oxqR11UzmluauE")
+//        Parse.setApplicationId("No8pkeg26XXKrFK4mAI5HUCN5qXAXa1hOrxjGk6c",
+//            clientKey: "pSkWBWYZsfBKHchgBg5Ngh7I55oxqR11UzmluauE")
 //        PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
 
         let takingScreenshots = NSUserDefaults.standardUserDefaults().boolForKey("FASTLANE_SNAPSHOT")

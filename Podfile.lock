@@ -14,13 +14,10 @@ PODS:
   - AFNetworking/Serialization (3.0.4)
   - AFNetworking/UIKit (3.0.4):
     - AFNetworking/NSURLSession
-  - Bolts/Tasks (1.5.0)
   - Crashlytics (3.4.1):
     - Fabric (~> 1.6.0)
   - Fabric (1.6.1)
   - MBProgressHUD (0.9.1)
-  - Parse (1.11.0):
-    - Bolts/Tasks (~> 1.5)
   - PulsingHalo (0.0.1)
   - UITableView-NXEmptyView (0.1.7)
   - XLForm (3.1.0)
@@ -30,18 +27,15 @@ DEPENDENCIES:
   - Crashlytics
   - Fabric
   - MBProgressHUD
-  - Parse
   - PulsingHalo
   - UITableView-NXEmptyView
   - XLForm
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
-  Bolts: 722ab9a4f8b50fc4ed1b9998a5a7a2b3f16d80b4
   Crashlytics: 41574a245bc6ae10c55d57f385ebd2004e5bee05
   Fabric: bf0ceb04e7c924090efc5f8c55e4fbcca189e0a0
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
-  Parse: 886af46a0a677402f6374bb97ac212e795f70afe
   PulsingHalo: 1583823bd6c989fff3469bb417bc42f0d268f98e
   UITableView-NXEmptyView: 0bc404cfd9c201af518a63240ac4ac4dad2c69c2
   XLForm: 754b061f9f4b249a7ab7548efb22f1b586e26740

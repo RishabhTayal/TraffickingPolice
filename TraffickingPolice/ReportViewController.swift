@@ -8,7 +8,7 @@
 
 import UIKit
 import XLForm
-import Parse
+//import Parse
 import MBProgressHUD
 
 class ReportViewController: XLFormViewController {

@@ -6,7 +6,9 @@
 //  Copyright © 2015 Tayal, Rishabh. All rights reserved.
 //
 
-import Parse
+//import Parse
+import UIKit
+import CoreLocation
 
 class AppHelper: NSObject {
     class func getDisplayLocationFromLocation(geoPoint: PFGeoPoint?, completion: (locationString: String) -> Void) {
