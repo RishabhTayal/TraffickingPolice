@@ -8,13 +8,14 @@
 
 import UIKit
 //import Parse
+import CloudKit
 import UITableView_NXEmptyView
 import AFNetworking
 
 class ReportedViewController: UIViewController {
 
     var tableView: UITableView!
-    var datasourceArray: [PFObject] = []
+    var datasourceArray: [CKRecord] = []
 
     var refreshControl: UIRefreshControl = UIRefreshControl()
 
@@ -39,10 +40,11 @@ class ReportedViewController: UIViewController {
     }
 
     func refreshData() {
-        let query = PFQuery(className: "Reported")
-        query.orderByDescending("createdAt")
+//        let query = PFQuery(className: "Reported")
+        let query = CKQuery(recordType: "Reported", predicate: NSPredicate(value: true))
+//        query.orderByDescending("createdAt")
         //        query.whereKey("owner", equalTo: PFUser.currentUser()!)
-        query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) -> Void in
+        AppHelper.publicDB.performQuery(query, inZoneWithID: nil) { (objects: [CKRecord]?, error: NSError?) -> Void in
             self.refreshControl.endRefreshing()
             if let objects = objects {
                 self.datasourceArray = objects
@@ -70,8 +72,8 @@ extension ReportedViewController: UITableViewDataSource, UITableViewDelegate {
         AppHelper.getDisplayLocationFromLocation(location) { (locationString) -> Void in
             cell.subTitleLabel.text = locationString
         }
-        if let file = object["image"] as? PFFile {
-            cell.mainImageView.setImageWithURL(NSURL(string: file.url!)!)
+        if let file = object["image"] as? CKAsset {
+            cell.mainImageView.setImageWithURL(file.fileURL)
         } else {
             cell.mainImageView.image = UIImage(named: "default_avatar")
         }

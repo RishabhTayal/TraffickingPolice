@@ -9,6 +9,7 @@
 import UIKit
 import XLForm
 //import Parse
+import CloudKit
 import MBProgressHUD
 
 class ReportViewController: XLFormViewController {
@@ -53,13 +54,15 @@ class ReportViewController: XLFormViewController {
         }
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         tableView.endEditing(true)
-        let object = PFObject(className: "Reported")
+//        let object = PFObject(className: "Reported")
+        let object = CKRecord(recordType: "Reported")
         for key in form.formValues().keys {
             if let image: UIImage = form.formValues()[key] as? UIImage {
                 if  image != UIImage(named: "default_avatar") {
-                    let imageData = UIImagePNGRepresentation(image)
-                    let imageFile = PFFile(name: "image.png", data: imageData!)
-                    object.setObject(imageFile!, forKey: key as! String)
+//                    let imageData = UIImagePNGRepresentation(image)
+                    let imageFile = CKAsset(fileURL: AppHelper.saveImageToFile(image))
+//                    let imageFile = PFFile(name: "image.png", data: imageData!)
+                    object.setObject(imageFile, forKey: key as! String)
                 }
             } else  if key == Tags.Location {
                 if let value = form.formValues()[key] as? Bool {
@@ -72,7 +75,7 @@ class ReportViewController: XLFormViewController {
             }
         }
 //        object.setObject(PFUser.currentUser()!, forKey: "owner")
-        object.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+        AppHelper.publicDB.saveRecord(object) { (record: CKRecord?, error: NSError?) -> Void in
             MBProgressHUD.hideHUDForView(self.view, animated: true)
             let alert = UIAlertController(title: "Activity reported successfully", message: "", preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction) -> Void in

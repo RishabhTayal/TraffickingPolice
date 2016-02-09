@@ -8,10 +8,11 @@
 
 import UIKit
 //import Parse
+import CloudKit
 
 class ReportedDetailViewController: ReportViewController {
     
-    var reportObject: PFObject!
+    var reportObject: CKRecord!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +26,7 @@ class ReportedDetailViewController: ReportViewController {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         actionSheet.addAction(UIAlertAction(title: "Report as Abuse Content", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction) -> Void in
             self.reportObject.setValue(true, forKey: "abusiveContent")
-            self.reportObject.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) -> Void in
+            AppHelper.publicDB.saveRecord(self.reportObject, completionHandler: { (record: CKRecord?, error: NSError?) -> Void in
                 let alert = UIAlertController(title: "Reported abusive content", message: nil, preferredStyle: .Alert)
                 alert.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)

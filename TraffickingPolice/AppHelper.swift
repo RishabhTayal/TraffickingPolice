@@ -9,8 +9,29 @@
 //import Parse
 import UIKit
 import CoreLocation
+import CloudKit
 
 class AppHelper: NSObject {
+    
+    static let container: CKContainer = CKContainer.defaultContainer()
+    static let publicDB = CKContainer.defaultContainer().publicCloudDatabase
+    static let privateDB = CKContainer.defaultContainer().privateCloudDatabase
+    
+    class func saveImageToFile(image: UIImage) -> NSURL {
+        let dirPaths = NSSearchPathForDirectoriesInDomains(
+            .DocumentDirectory, .UserDomainMask, true)
+        
+        let docsDir: AnyObject = dirPaths[0]
+        
+        let filePath =
+        docsDir.stringByAppendingPathComponent("currentImage.png")
+        
+        UIImageJPEGRepresentation(image, 0.5)!.writeToFile(filePath,
+            atomically: true)
+        
+        return NSURL.fileURLWithPath(filePath)
+    }
+
     class func getDisplayLocationFromLocation(geoPoint: PFGeoPoint?, completion: (locationString: String) -> Void) {
         if let geoPoint = geoPoint {
             let location = CLLocation(latitude: geoPoint.latitude, longitude: geoPoint.longitude)
