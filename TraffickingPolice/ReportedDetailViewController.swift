@@ -7,11 +7,12 @@
 //
 
 import UIKit
-import Parse
+import RTCloudKit
+import CloudKit
 
 class ReportedDetailViewController: ReportViewController {
     
-    var reportObject: PFObject!
+    var reportObject: CKRecord!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +26,7 @@ class ReportedDetailViewController: ReportViewController {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         actionSheet.addAction(UIAlertAction(title: "Report as Abuse Content", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction) -> Void in
             self.reportObject.setValue(true, forKey: "abusiveContent")
-            self.reportObject.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) -> Void in
+            RTCloudKit.sharedInstance.saveRecordInBackground(self.reportObject, completionHandler: { (object, error) -> Void in
                 let alert = UIAlertController(title: "Reported abusive content", message: nil, preferredStyle: .Alert)
                 alert.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
@@ -36,15 +37,13 @@ class ReportedDetailViewController: ReportViewController {
     }
     
     func configureValues() {
-        for key in reportObject.allKeys {
+        for key in reportObject.allKeys() {
             let row = form.formRowWithTag(key)
-            if let file = reportObject[key] as? PFFile {
+            if let file = reportObject[key] as? CKAsset {
                 print("file")
-                file.getDataInBackgroundWithBlock({ (data: NSData?, error: NSError?) -> Void in
-                    row?.value = UIImage(data: data!)
-                    self.tableView.reloadData()
-                })
-            } else if let location = reportObject[key] as? PFGeoPoint {
+                row?.value = UIImage(contentsOfFile: file.fileURL.path!)
+                self.tableView.reloadData()
+            } else if let location = reportObject[key] as? CLLocation {
                 print("locatiom")
                 row?.value = true
                 AppHelper.getDisplayLocationFromLocation(location, completion: { (locationString) -> Void in

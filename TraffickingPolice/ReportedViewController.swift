@@ -7,42 +7,42 @@
 //
 
 import UIKit
-import Parse
+import RTCloudKit
 import UITableView_NXEmptyView
 import AFNetworking
+import CloudKit
 
 class ReportedViewController: UIViewController {
-
+    
     var tableView: UITableView!
-    var datasourceArray: [PFObject] = []
-
+    var datasourceArray: [CKRecord] = []
+    
     var refreshControl: UIRefreshControl = UIRefreshControl()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         title = "Reported"
-
+        
         tableView = UITableView(frame: self.view.frame, style: .Grouped)
         tableView.dataSource = self
         tableView.delegate = self
         view.addSubview(tableView)
-
+        
         refreshControl.addTarget(self, action: "refreshData", forControlEvents: .ValueChanged)
         tableView.addSubview(refreshControl)
-
+        
         tableView.registerNib(UINib(nibName: "ReportedTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 64
-
+        
         refreshData()
     }
-
+    
     func refreshData() {
-        let query = PFQuery(className: "Reported")
-        query.orderByDescending("createdAt")
-        //        query.whereKey("owner", equalTo: PFUser.currentUser()!)
-        query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) -> Void in
+        let query = CKQuery(recordType: "Reported", predicate: NSPredicate(value: true))
+        query.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        RTCloudKit.sharedInstance.performQuery(query) { (objects, error) -> Void in  
             self.refreshControl.endRefreshing()
             if let objects = objects {
                 self.datasourceArray = objects
@@ -56,28 +56,28 @@ class ReportedViewController: UIViewController {
 
 extension ReportedViewController: UITableViewDataSource, UITableViewDelegate {
     //MARK: UITableView Datasource
-
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return datasourceArray.count
     }
-
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: ReportedTableViewCell = tableView.dequeueReusableCellWithIdentifier("cell") as! ReportedTableViewCell
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         let object = datasourceArray[indexPath.row]
         cell.nameLabel.text = object["reason"] as? String
-        let location = object["location"] as? PFGeoPoint
+        let location = object["location"] as? CLLocation
         AppHelper.getDisplayLocationFromLocation(location) { (locationString) -> Void in
             cell.subTitleLabel.text = locationString
         }
-        if let file = object["image"] as? PFFile {
-            cell.mainImageView.setImageWithURL(NSURL(string: file.url!)!)
+        if let file = object["image"] as? CKAsset {
+            cell.mainImageView.setImageWithURL(file.fileURL)
         } else {
             cell.mainImageView.image = UIImage(named: "default_avatar")
         }
         return cell
     }
-
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let vc = storyboard?.instantiateViewControllerWithIdentifier("ReportedDetailViewController") as! ReportedDetailViewController

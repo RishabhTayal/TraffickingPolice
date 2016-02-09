@@ -6,14 +6,30 @@
 //  Copyright © 2015 Tayal, Rishabh. All rights reserved.
 //
 
-import Parse
+import UIKit
+import CoreLocation
 
 class AppHelper: NSObject {
-    class func getDisplayLocationFromLocation(geoPoint: PFGeoPoint?, completion: (locationString: String) -> Void) {
+    
+    class func saveImageToFile(image: UIImage) -> NSURL {
+        let dirPaths = NSSearchPathForDirectoriesInDomains(
+            .DocumentDirectory, .UserDomainMask, true)
+        
+        let docsDir: AnyObject = dirPaths[0]
+        
+        let filePath =
+        docsDir.stringByAppendingPathComponent("currentImage.png")
+        
+        UIImageJPEGRepresentation(image, 0.5)!.writeToFile(filePath,
+            atomically: true)
+        
+        return NSURL.fileURLWithPath(filePath)
+    }
+
+    class func getDisplayLocationFromLocation(geoPoint: CLLocation?, completion: (locationString: String) -> Void) {
         if let geoPoint = geoPoint {
-            let location = CLLocation(latitude: geoPoint.latitude, longitude: geoPoint.longitude)
             let geoCoder = CLGeocoder()
-            geoCoder.reverseGeocodeLocation(location) { (placemark: [CLPlacemark]?, error: NSError?) -> Void in
+            geoCoder.reverseGeocodeLocation(geoPoint) { (placemark: [CLPlacemark]?, error: NSError?) -> Void in
                 if let firstPlacemark = placemark!.first {
                     var str = ""
                     if let locality = firstPlacemark.locality {
