@@ -7,9 +7,10 @@
 //
 
 import UIKit
-import CloudKit
+import RTCloudKit
 import UITableView_NXEmptyView
 import AFNetworking
+import CloudKit
 
 class ReportedViewController: UIViewController {
     
@@ -41,16 +42,14 @@ class ReportedViewController: UIViewController {
     func refreshData() {
         let query = CKQuery(recordType: "Reported", predicate: NSPredicate(value: true))
         query.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        AppHelper.publicDB.performQuery(query, inZoneWithID: nil) { (objects: [CKRecord]?, error: NSError?) -> Void in
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.refreshControl.endRefreshing()
-                if let objects = objects {
-                    self.datasourceArray = objects
-                    self.tableView.reloadData()
-                }
-                self.tableView.nxEV_emptyView = UIView.emptyViewWithLabel(self.tableView.frame, text: "No reports submitted")
-                self.tableView.nxEV_hideSeparatorLinesWhenShowingEmptyView = true
-            })
+        RTCloudKit.sharedInstance.performQuery(query) { (objects, error) -> Void in  
+            self.refreshControl.endRefreshing()
+            if let objects = objects {
+                self.datasourceArray = objects
+                self.tableView.reloadData()
+            }
+            self.tableView.nxEV_emptyView = UIView.emptyViewWithLabel(self.tableView.frame, text: "No reports submitted")
+            self.tableView.nxEV_hideSeparatorLinesWhenShowingEmptyView = true
         }
     }
 }

@@ -8,9 +8,10 @@
 
 import UIKit
 import XLForm
-import CloudKit
+import RTCloudKit
 import MBProgressHUD
 import INTULocationManager
+import CloudKit
 
 class ReportViewController: XLFormViewController {
     
@@ -75,15 +76,13 @@ class ReportViewController: XLFormViewController {
                 }
             }
         }
-        AppHelper.publicDB.saveRecord(object) { (record: CKRecord?, error: NSError?) -> Void in
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                MBProgressHUD.hideHUDForView(self.view, animated: true)
-                let alert = UIAlertController(title: "Activity reported successfully", message: "", preferredStyle: .Alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction) -> Void in
-                    self.navigationController?.popViewControllerAnimated(true)
-                }))
-                self.presentViewController(alert, animated: true, completion: nil)
-            })
+        RTCloudKit.sharedInstance.saveRecordInBackground(object) { (object, error) -> Void in
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
+            let alert = UIAlertController(title: "Activity reported successfully", message: "", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction) -> Void in
+                self.navigationController?.popViewControllerAnimated(true)
+            }))
+            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
     

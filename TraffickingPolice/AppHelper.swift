@@ -8,13 +8,8 @@
 
 import UIKit
 import CoreLocation
-import CloudKit
 
 class AppHelper: NSObject {
-    
-    static let container: CKContainer = CKContainer.defaultContainer()
-    static let publicDB = CKContainer.defaultContainer().publicCloudDatabase
-    static let privateDB = CKContainer.defaultContainer().privateCloudDatabase
     
     class func saveImageToFile(image: UIImage) -> NSURL {
         let dirPaths = NSSearchPathForDirectoriesInDomains(

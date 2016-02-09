@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RTCloudKit
 import CloudKit
 
 class ReportedDetailViewController: ReportViewController {
@@ -25,7 +26,7 @@ class ReportedDetailViewController: ReportViewController {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         actionSheet.addAction(UIAlertAction(title: "Report as Abuse Content", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction) -> Void in
             self.reportObject.setValue(true, forKey: "abusiveContent")
-            AppHelper.publicDB.saveRecord(self.reportObject, completionHandler: { (record: CKRecord?, error: NSError?) -> Void in
+            RTCloudKit.sharedInstance.saveRecordInBackground(self.reportObject, completionHandler: { (object, error) -> Void in
                 let alert = UIAlertController(title: "Reported abusive content", message: nil, preferredStyle: .Alert)
                 alert.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
