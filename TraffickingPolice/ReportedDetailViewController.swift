@@ -37,15 +37,13 @@ class ReportedDetailViewController: ReportViewController {
     }
     
     func configureValues() {
-        for key in reportObject.allKeys {
+        for key in reportObject.allKeys() {
             let row = form.formRowWithTag(key)
-            if let file = reportObject[key] as? PFFile {
+            if let file = reportObject[key] as? CKAsset {
                 print("file")
-                file.getDataInBackgroundWithBlock({ (data: NSData?, error: NSError?) -> Void in
-                    row?.value = UIImage(data: data!)
-                    self.tableView.reloadData()
-                })
-            } else if let location = reportObject[key] as? PFGeoPoint {
+                row?.value = UIImage(contentsOfFile: file.fileURL.path!)
+                self.tableView.reloadData()
+            } else if let location = reportObject[key] as? CLLocation {
                 print("locatiom")
                 row?.value = true
                 AppHelper.getDisplayLocationFromLocation(location, completion: { (locationString) -> Void in

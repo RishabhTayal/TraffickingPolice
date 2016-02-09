@@ -17,6 +17,7 @@ PODS:
   - Crashlytics (3.4.1):
     - Fabric (~> 1.6.0)
   - Fabric (1.6.1)
+  - INTULocationManager (4.1.1)
   - MBProgressHUD (0.9.1)
   - PulsingHalo (0.0.1)
   - UITableView-NXEmptyView (0.1.7)
@@ -26,6 +27,7 @@ DEPENDENCIES:
   - AFNetworking
   - Crashlytics
   - Fabric
+  - INTULocationManager
   - MBProgressHUD
   - PulsingHalo
   - UITableView-NXEmptyView
@@ -35,6 +37,7 @@ SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
   Crashlytics: 41574a245bc6ae10c55d57f385ebd2004e5bee05
   Fabric: bf0ceb04e7c924090efc5f8c55e4fbcca189e0a0
+  INTULocationManager: 83c7373048d583cda57e25eefb9bb8a3675acf16
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   PulsingHalo: 1583823bd6c989fff3469bb417bc42f0d268f98e
   UITableView-NXEmptyView: 0bc404cfd9c201af518a63240ac4ac4dad2c69c2

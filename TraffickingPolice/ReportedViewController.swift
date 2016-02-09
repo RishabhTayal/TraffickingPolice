@@ -13,62 +13,62 @@ import UITableView_NXEmptyView
 import AFNetworking
 
 class ReportedViewController: UIViewController {
-
+    
     var tableView: UITableView!
     var datasourceArray: [CKRecord] = []
-
+    
     var refreshControl: UIRefreshControl = UIRefreshControl()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         title = "Reported"
-
+        
         tableView = UITableView(frame: self.view.frame, style: .Grouped)
         tableView.dataSource = self
         tableView.delegate = self
         view.addSubview(tableView)
-
+        
         refreshControl.addTarget(self, action: "refreshData", forControlEvents: .ValueChanged)
         tableView.addSubview(refreshControl)
-
+        
         tableView.registerNib(UINib(nibName: "ReportedTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 64
-
+        
         refreshData()
     }
-
+    
     func refreshData() {
-//        let query = PFQuery(className: "Reported")
         let query = CKQuery(recordType: "Reported", predicate: NSPredicate(value: true))
-//        query.orderByDescending("createdAt")
-        //        query.whereKey("owner", equalTo: PFUser.currentUser()!)
+        query.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         AppHelper.publicDB.performQuery(query, inZoneWithID: nil) { (objects: [CKRecord]?, error: NSError?) -> Void in
-            self.refreshControl.endRefreshing()
-            if let objects = objects {
-                self.datasourceArray = objects
-                self.tableView.reloadData()
-            }
-            self.tableView.nxEV_emptyView = UIView.emptyViewWithLabel(self.tableView.frame, text: "No reports submitted")
-            self.tableView.nxEV_hideSeparatorLinesWhenShowingEmptyView = true
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.refreshControl.endRefreshing()
+                if let objects = objects {
+                    self.datasourceArray = objects
+                    self.tableView.reloadData()
+                }
+                self.tableView.nxEV_emptyView = UIView.emptyViewWithLabel(self.tableView.frame, text: "No reports submitted")
+                self.tableView.nxEV_hideSeparatorLinesWhenShowingEmptyView = true
+            })
         }
     }
 }
 
 extension ReportedViewController: UITableViewDataSource, UITableViewDelegate {
     //MARK: UITableView Datasource
-
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return datasourceArray.count
     }
-
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: ReportedTableViewCell = tableView.dequeueReusableCellWithIdentifier("cell") as! ReportedTableViewCell
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         let object = datasourceArray[indexPath.row]
         cell.nameLabel.text = object["reason"] as? String
-        let location = object["location"] as? PFGeoPoint
+        let location = object["location"] as? CLLocation
         AppHelper.getDisplayLocationFromLocation(location) { (locationString) -> Void in
             cell.subTitleLabel.text = locationString
         }
@@ -79,7 +79,7 @@ extension ReportedViewController: UITableViewDataSource, UITableViewDelegate {
         }
         return cell
     }
-
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let vc = storyboard?.instantiateViewControllerWithIdentifier("ReportedDetailViewController") as! ReportedDetailViewController
