@@ -6,7 +6,6 @@
 //  Copyright © 2015 Tayal, Rishabh. All rights reserved.
 //
 
-//import Parse
 import UIKit
 import CoreLocation
 import CloudKit

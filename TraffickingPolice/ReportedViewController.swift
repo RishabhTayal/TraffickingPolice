@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import Parse
 import CloudKit
 import UITableView_NXEmptyView
 import AFNetworking

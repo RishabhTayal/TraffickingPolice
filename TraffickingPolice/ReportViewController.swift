@@ -8,7 +8,6 @@
 
 import UIKit
 import XLForm
-//import Parse
 import CloudKit
 import MBProgressHUD
 import INTULocationManager
@@ -173,7 +172,6 @@ class ReportViewController: XLFormViewController {
                 let section = formRow.sectionDescriptor
                 if locationAdded {
                     INTULocationManager.sharedInstance().requestLocationWithDesiredAccuracy(INTULocationAccuracy.City, timeout: 10, block: { (location: CLLocation!, accuracy: INTULocationAccuracy, status: INTULocationStatus) -> Void in
-                        //                    PFGeoPoint.geoPointForCurrentLocationInBackground({ (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
                         if let geoPoint = location {
                             self.currentLocation = geoPoint
                             AppHelper.getDisplayLocationFromLocation(geoPoint, completion: { (locationString) -> Void in

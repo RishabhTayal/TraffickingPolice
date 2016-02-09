@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import Parse
 import CloudKit
 
 class ReportedDetailViewController: ReportViewController {
