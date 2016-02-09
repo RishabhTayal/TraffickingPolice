@@ -9,6 +9,7 @@
 import UIKit
 import Fabric
 import Crashlytics
+import CloudKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,6 +30,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.redColor()], forState: .Selected)
         
         return true
+    }
+    
+    func applicationDidBecomeActive(application: UIApplication) {
+        CKContainer.defaultContainer().accountStatusWithCompletionHandler { (status: CKAccountStatus, error: NSError?) -> Void in
+            if (status == .NoAccount) {
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    let alert = UIAlertController(title: "Sign in to iCloud",
+                        message: "Sign in to your iCloud account. On the Home screen, launch Settings, tap iCloud, and enter your Apple ID. If you don't have an iCloud account, tap Create a new Apple ID.",
+                        preferredStyle: .Alert)
+                    alert.addAction(UIAlertAction(title: "Okay", style: .Cancel, handler: nil))
+                    self.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+                })
+            } else {
+                // Insert your just-in-time schema code here
+            }
+        }
     }
     
     func showMainScreen() {
