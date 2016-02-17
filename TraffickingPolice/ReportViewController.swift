@@ -8,10 +8,8 @@
 
 import UIKit
 import XLForm
-import RTCloudKit
 import MBProgressHUD
 import INTULocationManager
-import CloudKit
 
 class ReportViewController: XLFormViewController {
     
@@ -37,6 +35,10 @@ class ReportViewController: XLFormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ServiceCaller.getReportListing { (result, error) -> Void in
+            print(result)
+        }
+        
         self.title = "Report"
         if !form.disabled {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Report", style: .Plain, target: self, action: "savePressed:")
@@ -55,28 +57,29 @@ class ReportViewController: XLFormViewController {
         }
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         tableView.endEditing(true)
-        let object = CKRecord(recordType: "Reported")
+        let object = Report()
         for key in form.formValues().keys {
             if let key = key as? String {
                 if let image: UIImage = form.formValues()[key] as? UIImage {
                     if  image != UIImage(named: "default_avatar") {
-                        let imageFile = CKAsset(fileURL: AppHelper.saveImageToFile(image))
-                        object[key] = imageFile
+                        //TODO: Add image
+                        //                        let imageFile = CKAsset(fileURL: AppHelper.saveImageToFile(image))
+                        //                        object[key] = imageFile
                     }
                 } else  if key == Tags.Location {
-                    if let value = form.formValues()[key] as? Bool {
-                        if value {
-                            object[key] = currentLocation
-                        }
-                    }
+                    //                    if let value = form.formValues()[key] as? Bool {
+                    //                        if value {
+                    //                            object[key] = currentLocation
+                    //                        }
+                    //                    }
                 } else {
-                    if let value = form.formValues()[key] where !(value is NSNull) {
-                        object.setValue(value, forKey: key)
-                    }
+                    //                    if let value = form.formValues()[key] where !(value is NSNull) {
+                    //                        object.setValue(value, forKey: key)
+                    //                    }
                 }
             }
         }
-        RTCloudKit.sharedInstance.saveRecordInBackground(object) { (object, error) -> Void in
+        ServiceCaller.saveReportObject(object) { (result, error) -> Void in
             MBProgressHUD.hideHUDForView(self.view, animated: true)
             let alert = UIAlertController(title: "Activity reported successfully", message: "", preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction) -> Void in

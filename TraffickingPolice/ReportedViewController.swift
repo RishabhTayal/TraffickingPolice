@@ -7,15 +7,13 @@
 //
 
 import UIKit
-import RTCloudKit
 import UITableView_NXEmptyView
 import AFNetworking
-import CloudKit
 
 class ReportedViewController: UIViewController {
     
     var tableView: UITableView!
-    var datasourceArray: [CKRecord] = []
+    var datasourceArray: [Report] = []
     
     var refreshControl: UIRefreshControl = UIRefreshControl()
     
@@ -40,12 +38,14 @@ class ReportedViewController: UIViewController {
     }
     
     func refreshData() {
-        let query = CKQuery(recordType: "Reported", predicate: NSPredicate(value: true))
-        query.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        RTCloudKit.sharedInstance.performQuery(query) { (objects, error) -> Void in  
+        ServiceCaller.getReportListing { (result, error) -> Void in
             self.refreshControl.endRefreshing()
-            if let objects = objects {
-                self.datasourceArray = objects
+            if let objects = result as? [Dictionary<String, AnyObject>] {
+                self.datasourceArray = []
+                for object in objects {
+                    let report = Report(dict: object)
+                    self.datasourceArray.append(report)
+                }
                 self.tableView.reloadData()
             }
             self.tableView.nxEV_emptyView = UIView.emptyViewWithLabel(self.tableView.frame, text: "No reports submitted")
@@ -65,16 +65,17 @@ extension ReportedViewController: UITableViewDataSource, UITableViewDelegate {
         let cell: ReportedTableViewCell = tableView.dequeueReusableCellWithIdentifier("cell") as! ReportedTableViewCell
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         let object = datasourceArray[indexPath.row]
-        cell.nameLabel.text = object["reason"] as? String
-        let location = object["location"] as? CLLocation
-        AppHelper.getDisplayLocationFromLocation(location) { (locationString) -> Void in
-            cell.subTitleLabel.text = locationString
-        }
-        if let file = object["image"] as? CKAsset {
-            cell.mainImageView.setImageWithURL(file.fileURL)
-        } else {
-            cell.mainImageView.image = UIImage(named: "default_avatar")
-        }
+        cell.nameLabel.text = object.reason
+        //TODO: enable location string
+        //        let location = object["location"] as? CLLocation
+        //        AppHelper.getDisplayLocationFromLocation(location) { (locationString) -> Void in
+        //            cell.subTitleLabel.text = locationString
+        //        }
+        //        if let file = object["image"] as? CKAsset {
+        //            cell.mainImageView.setImageWithURL(file.fileURL)
+        //        } else {
+        //            cell.mainImageView.image = UIImage(named: "default_avatar")
+        //        }
         return cell
     }
     
