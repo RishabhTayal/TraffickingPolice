@@ -14,7 +14,7 @@ pod 'PulsingHalo'
 pod 'UITableView-NXEmptyView'
 pod 'AFNetworking'
 pod 'INTULocationManager'
-pod 'RTCloudKit'
+#pod 'RTCloudKit'
 
 post_install do |installer|
     installer.pods_project.targets.each do |target|
