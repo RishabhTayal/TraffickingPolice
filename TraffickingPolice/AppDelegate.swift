@@ -9,12 +9,12 @@
 import UIKit
 import Fabric
 import Crashlytics
+import Parse
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         Fabric.with([Crashlytics.self])
@@ -25,6 +25,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             showMainScreen()
         }
+        
+        let config = ParseClientConfiguration {
+            $0.applicationId = "myAppId"
+            $0.clientKey = ""
+            $0.server = "https://trafficking-backend.herokuapp.com/parse"
+        }
+        Parse.initializeWithConfiguration(config)
+        
         
         //        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.redColor()], forState: .Selected)
         

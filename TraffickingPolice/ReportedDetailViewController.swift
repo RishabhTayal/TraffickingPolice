@@ -36,28 +36,29 @@ class ReportedDetailViewController: ReportViewController {
     }
     
     func configureValues() {
-        //        for key in reportObject.allKeys() {
-        //            let row = form.formRowWithTag(key)
-        //            if let file = reportObject[key] as? CKAsset {
-        //                print("file")
-        //                row?.value = UIImage(contentsOfFile: file.fileURL.path!)
-        //                self.tableView.reloadData()
-        //            } else if let location = reportObject[key] as? CLLocation {
-        //                print("locatiom")
-        //                row?.value = true
-        //                AppHelper.getDisplayLocationFromLocation(location, completion: { (locationString) -> Void in
-        //                    let section = row?.sectionDescriptor
-        //                    section?.footerTitle = locationString
-        //                    self.tableView.reloadData()
-        //                })
-        //            } else if let value = reportObject[key] {
-        //                if value is NSNull {
-        //                    
-        //                } else {
-        //                    row?.value = value
-        //                }
-        //            }
-        //        }
+        for key in reportObject.propertyNames() {
+            let row = form.formRowWithTag(key)
+            //            if let file = reportObject[key] as? CKAsset {
+            //                print("file")
+            //                row?.value = UIImage(contentsOfFile: file.fileURL.path!)
+            //                self.tableView.reloadData()
+            //            } else if let location = reportObject[key] as? CLLocation {
+            //                print("locatiom")
+            //                row?.value = true
+            //                AppHelper.getDisplayLocationFromLocation(location, completion: { (locationString) -> Void in
+            //                    let section = row?.sectionDescriptor
+            //                    section?.footerTitle = locationString
+            //                    self.tableView.reloadData()
+            //                })
+            //        } else if let value = reportObject.valueForKey(key) {
+            if let value = reportObject.valueForKey(key) {
+                if value is NSNull {
+                    
+                } else {
+                    row?.value = value
+                }
+            }
+        }
     }
     
     override func initialForm() {

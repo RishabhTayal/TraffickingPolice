@@ -18,18 +18,8 @@
 	<string>1.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb521521054682601</string>
-				<string>fbauth2</string>
-			</array>
-		</dict>
-	</array>
 	<key>CFBundleVersion</key>
-	<string>485</string>
+	<string>495</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>

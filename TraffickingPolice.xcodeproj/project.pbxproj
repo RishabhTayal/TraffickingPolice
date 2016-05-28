@@ -109,6 +109,15 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
+		69AF1AFD1C7518950085BB7C /* License */ = {
+			isa = PBXGroup;
+			children = (
+				69786AE41C5FDA4400BAF385 /* LicenseViewController.swift */,
+				69786AE51C5FDA4400BAF385 /* LicenseViewController.xib */,
+			);
+			name = License;
+			sourceTree = "<group>";
+		};
 		69EE71F71C28C6F4009C1957 = {
 			isa = PBXGroup;
 			children = (
@@ -138,8 +147,7 @@
 				69EE72031C28C6F4009C1957 /* AppDelegate.swift */,
 				69AF1AFB1C75142A0085BB7C /* Report.swift */,
 				69F445631C28CCE800F4A2DA /* InstructionsViewController.swift */,
-				69786AE41C5FDA4400BAF385 /* LicenseViewController.swift */,
-				69786AE51C5FDA4400BAF385 /* LicenseViewController.xib */,
+				69AF1AFD1C7518950085BB7C /* License */,
 				695BB7151C2A541100C92376 /* MainViewController.swift */,
 				69739A021C45ED6B00183BA5 /* Reported */,
 				69EE72051C28C6F4009C1957 /* ReportViewController.swift */,
@@ -203,7 +211,6 @@
 				C5E1217CA1153F97E7310BA0 /* Copy Pods Resources */,
 				69F445651C293F8C00F4A2DA /* ShellScript */,
 				695BB70E1C29FEB300C92376 /* Build update Script */,
-				E4875D45BD611C6277117275 /* Find unused imports */,
 			);
 			buildRules = (
 			);
@@ -372,20 +379,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		E4875D45BD611C6277117275 /* Find unused imports */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Find unused imports";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"/Users/rtayal/Library/Application Support/Developer/Shared/Xcode/Plug-ins/xcfui.xcplugin/Contents/Resources/fui_script.sh\" \"/Users/rtayal/Desktop/Personal/TraffickingPolice\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
