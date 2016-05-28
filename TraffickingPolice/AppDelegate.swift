@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         Fabric.with([Crashlytics.self])
         
+        Report.registerSubclass()
+        
         let takingScreenshots = NSUserDefaults.standardUserDefaults().boolForKey("FASTLANE_SNAPSHOT")
         if takingScreenshots {
             showMainScreen()
@@ -32,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             $0.server = "https://trafficking-backend.herokuapp.com/parse"
         }
         Parse.initializeWithConfiguration(config)
-        
         
         //        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.redColor()], forState: .Selected)
         

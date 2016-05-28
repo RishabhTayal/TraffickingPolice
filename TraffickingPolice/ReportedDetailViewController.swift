@@ -15,7 +15,7 @@ class ReportedDetailViewController: ReportViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "actionButtonTapped:")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(ReportedDetailViewController.actionButtonTapped(_:)))
         
         configureValues()
     }

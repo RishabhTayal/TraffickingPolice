@@ -14,13 +14,13 @@ import INTULocationManager
 class ReportViewController: XLFormViewController {
     
     private struct Tags {
-//        static let Reason = "reason"
-//        static let Age = "age"
+        //        static let Reason = "reason"
+        //        static let Age = "age"
         static let Image = "image"
         static let SecondImage = "secondImage"
         static let ZipCode = "zipCode"
-//        static let ActivityType = "activityType"
-//        static let Gender = "gender"
+        //        static let ActivityType = "activityType"
+        //        static let Gender = "gender"
         static let Location = "location"
         static let Comments = "comments"
     }
@@ -41,7 +41,7 @@ class ReportViewController: XLFormViewController {
         
         self.title = "Report"
         if !form.disabled {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Report", style: .Plain, target: self, action: "savePressed:")
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Report", style: .Plain, target: self, action: #selector(ReportViewController.savePressed(_:)))
         }
     }
     
@@ -67,15 +67,15 @@ class ReportViewController: XLFormViewController {
                         //                        object[key] = imageFile
                     }
                 } else  if key == Tags.Location {
-                    //                    if let value = form.formValues()[key] as? Bool {
-                    //                        if value {
-                    //                            object[key] = currentLocation
-                    //                        }
-                    //                    }
+                    if let value = form.formValues()[key] as? Bool {
+                        if value {
+                            object[key] = currentLocation
+                        }
+                    }
                 } else {
-                    //                    if let value = form.formValues()[key] where !(value is NSNull) {
-                    //                        object.setValue(value, forKey: key)
-                    //                    }
+                    if let value = form.formValues()[key] where !(value is NSNull) {
+                        object.setValue(value, forKey: key)
+                    }
                 }
             }
         }
@@ -102,23 +102,23 @@ class ReportViewController: XLFormViewController {
         form.addFormSection(section)
         
         // Reason
-//        row = XLFormRowDescriptor(tag: Tags.Reason, rowType: XLFormRowDescriptorTypeTextView)
-//        row.cellConfig.setObject("eg. I saw a young girl, no belongings and dressed for summertime instead of rain.", forKey: "textView.placeholder")
-//        row.required = true
-//        section.addFormRow(row)
+        //        row = XLFormRowDescriptor(tag: Tags.Reason, rowType: XLFormRowDescriptorTypeTextView)
+        //        row.cellConfig.setObject("eg. I saw a young girl, no belongings and dressed for summertime instead of rain.", forKey: "textView.placeholder")
+        //        row.required = true
+        //        section.addFormRow(row)
         
         section = XLFormSectionDescriptor.formSectionWithTitle("")
         form.addFormSection(section)
         
         // Age
-//        row = XLFormRowDescriptor(tag: Tags.Age, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"Age")
-//        row.selectorOptions = ["0-10", "11-18", "19-25", "26-35", "36-50"]
-//        section.addFormRow(row)
+        //        row = XLFormRowDescriptor(tag: Tags.Age, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"Age")
+        //        row.selectorOptions = ["0-10", "11-18", "19-25", "26-35", "36-50"]
+        //        section.addFormRow(row)
         
         //Gender
-//        row = XLFormRowDescriptor(tag: Tags.Gender, rowType: XLFormRowDescriptorTypeSelectorSegmentedControl, title: "Gender")
-//        row.selectorOptions = ["Male", "Female", "Multiple"]
-//        section.addFormRow(row)
+        //        row = XLFormRowDescriptor(tag: Tags.Gender, rowType: XLFormRowDescriptorTypeSelectorSegmentedControl, title: "Gender")
+        //        row.selectorOptions = ["Male", "Female", "Multiple"]
+        //        section.addFormRow(row)
         
         // Zip Code
         row = XLFormRowDescriptor(tag: Tags.ZipCode, rowType: XLFormRowDescriptorTypeZipCode, title: "Zip Code")
@@ -126,10 +126,10 @@ class ReportViewController: XLFormViewController {
         section.addFormRow(row)
         
         //Activity
-//        row = XLFormRowDescriptor(tag: Tags.ActivityType, rowType: XLFormRowDescriptorTypeSelectorPickerView, title: "Activity Type")
-//        row.selectorOptions = ["Solicitation", "Exploitation", "Under Age", "Other"]
-//        row.required = true
-//        section.addFormRow(row)
+        //        row = XLFormRowDescriptor(tag: Tags.ActivityType, rowType: XLFormRowDescriptorTypeSelectorPickerView, title: "Activity Type")
+        //        row.selectorOptions = ["Solicitation", "Exploitation", "Under Age", "Other"]
+        //        row.required = true
+        //        section.addFormRow(row)
         
         section = XLFormSectionDescriptor.formSectionWithTitle("Location")
         form.addFormSection(section)

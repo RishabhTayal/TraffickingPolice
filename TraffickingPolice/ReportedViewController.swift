@@ -9,6 +9,7 @@
 import UIKit
 import UITableView_NXEmptyView
 import AFNetworking
+import Parse
 
 class ReportedViewController: UIViewController {
     
@@ -27,7 +28,7 @@ class ReportedViewController: UIViewController {
         tableView.delegate = self
         view.addSubview(tableView)
         
-        refreshControl.addTarget(self, action: "refreshData", forControlEvents: .ValueChanged)
+        refreshControl.addTarget(self, action: #selector(ReportedViewController.refreshData), forControlEvents: .ValueChanged)
         tableView.addSubview(refreshControl)
         
         tableView.registerNib(UINib(nibName: "ReportedTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
@@ -38,14 +39,10 @@ class ReportedViewController: UIViewController {
     }
     
     func refreshData() {
-        ServiceCaller.getReportListing { (result, error) -> Void in
+        ServiceCaller.getReportListing { (objects: [PFObject]?, error: NSError?) in
             self.refreshControl.endRefreshing()
-            if let objects = result as? [Dictionary<String, AnyObject>] {
-                self.datasourceArray = []
-                for object in objects {
-                    let report = Report(dict: object)
-                    self.datasourceArray.append(report)
-                }
+            if let objects = objects as? [Report] {
+                self.datasourceArray = objects
                 self.tableView.reloadData()
             }
             self.tableView.nxEV_emptyView = UIView.emptyViewWithLabel(self.tableView.frame, text: "No reports submitted")
