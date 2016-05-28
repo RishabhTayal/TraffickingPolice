@@ -13,6 +13,7 @@ class ServiceCaller {
     
     class func getReportListing(completion: PFQueryArrayResultBlock) {
         let query = Report.query()
+        query?.orderByDescending("createdAt")
         query?.findObjectsInBackgroundWithBlock(completion)
     }
     
