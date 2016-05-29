@@ -36,7 +36,7 @@ class ReportedDetailViewController: ReportViewController {
     }
     
     func configureValues() {
-        for key in reportObject.propertyNames() {
+        for key in reportObject.allKeys {
             let row = form.formRowWithTag(key)
             //            if let file = reportObject[key] as? CKAsset {
             //                print("file")

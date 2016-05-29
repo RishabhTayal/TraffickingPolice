@@ -98,9 +98,9 @@ class ReportViewController: XLFormViewController {
         form = XLFormDescriptor()
         form.addAsteriskToRequiredRowsTitle = true
         
-        section = XLFormSectionDescriptor.formSectionWithTitle("Describe the reason you are reporting")
-        form.addFormSection(section)
-        
+//        section = XLFormSectionDescriptor.formSectionWithTitle("Describe the reason you are reporting")
+//        form.addFormSection(section)
+//        
         // Reason
         //        row = XLFormRowDescriptor(tag: Tags.Reason, rowType: XLFormRowDescriptorTypeTextView)
         //        row.cellConfig.setObject("eg. I saw a young girl, no belongings and dressed for summertime instead of rain.", forKey: "textView.placeholder")
