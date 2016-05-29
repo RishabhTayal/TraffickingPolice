@@ -8,21 +8,20 @@
 
 import UIKit
 import XLForm
-import RTCloudKit
 import MBProgressHUD
 import INTULocationManager
-import CloudKit
+import Parse
 
 class ReportViewController: XLFormViewController {
     
     private struct Tags {
-        static let Reason = "reason"
-        static let Age = "age"
+        //        static let Reason = "reason"
+        //        static let Age = "age"
         static let Image = "image"
         static let SecondImage = "secondImage"
         static let ZipCode = "zipCode"
-        static let ActivityType = "activityType"
-        static let Gender = "gender"
+        //        static let ActivityType = "activityType"
+        //        static let Gender = "gender"
         static let Location = "location"
         static let Comments = "comments"
     }
@@ -32,14 +31,18 @@ class ReportViewController: XLFormViewController {
         initialForm()
     }
     
-    var currentLocation: CLLocation?
+    var currentLocation: PFGeoPoint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ServiceCaller.getReportListing { (result, error) -> Void in
+            print(result)
+        }
+        
         self.title = "Report"
         if !form.disabled {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Report", style: .Plain, target: self, action: "savePressed:")
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Report", style: .Plain, target: self, action: #selector(ReportViewController.savePressed(_:)))
         }
     }
     
@@ -55,13 +58,18 @@ class ReportViewController: XLFormViewController {
         }
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         tableView.endEditing(true)
-        let object = CKRecord(recordType: "Reported")
+        let object = Report()
         for key in form.formValues().keys {
             if let key = key as? String {
                 if let image: UIImage = form.formValues()[key] as? UIImage {
                     if  image != UIImage(named: "default_avatar") {
-                        let imageFile = CKAsset(fileURL: AppHelper.saveImageToFile(image))
-                        object[key] = imageFile
+                        let file = PFFile(data: UIImageJPEGRepresentation(image, 1.0)!)
+                        do {
+                            try file?.save()
+                        } catch { }
+                        object[key] = file
+                        //                        let imageFile = CKAsset(fileURL: AppHelper.saveImageToFile(image))
+                        //                        object[key] = imageFile
                     }
                 } else  if key == Tags.Location {
                     if let value = form.formValues()[key] as? Bool {
@@ -76,7 +84,7 @@ class ReportViewController: XLFormViewController {
                 }
             }
         }
-        RTCloudKit.sharedInstance.saveRecordInBackground(object) { (object, error) -> Void in
+        ServiceCaller.saveReportObject(object) { (result, error) -> Void in
             MBProgressHUD.hideHUDForView(self.view, animated: true)
             let alert = UIAlertController(title: "Activity reported successfully", message: "", preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction) -> Void in
@@ -95,27 +103,27 @@ class ReportViewController: XLFormViewController {
         form = XLFormDescriptor()
         form.addAsteriskToRequiredRowsTitle = true
         
-        section = XLFormSectionDescriptor.formSectionWithTitle("Describe the reason you are reporting")
-        form.addFormSection(section)
-        
+        //        section = XLFormSectionDescriptor.formSectionWithTitle("Describe the reason you are reporting")
+        //        form.addFormSection(section)
+        //
         // Reason
-        row = XLFormRowDescriptor(tag: Tags.Reason, rowType: XLFormRowDescriptorTypeTextView)
-        row.cellConfig.setObject("eg. I saw a young girl, no belongings and dressed for summertime instead of rain.", forKey: "textView.placeholder")
-        row.required = true
-        section.addFormRow(row)
+        //        row = XLFormRowDescriptor(tag: Tags.Reason, rowType: XLFormRowDescriptorTypeTextView)
+        //        row.cellConfig.setObject("eg. I saw a young girl, no belongings and dressed for summertime instead of rain.", forKey: "textView.placeholder")
+        //        row.required = true
+        //        section.addFormRow(row)
         
         section = XLFormSectionDescriptor.formSectionWithTitle("")
         form.addFormSection(section)
         
         // Age
-        row = XLFormRowDescriptor(tag: Tags.Age, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"Age")
-        row.selectorOptions = ["0-10", "11-18", "19-25", "26-35", "36-50"]
-        section.addFormRow(row)
+        //        row = XLFormRowDescriptor(tag: Tags.Age, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"Age")
+        //        row.selectorOptions = ["0-10", "11-18", "19-25", "26-35", "36-50"]
+        //        section.addFormRow(row)
         
         //Gender
-        row = XLFormRowDescriptor(tag: Tags.Gender, rowType: XLFormRowDescriptorTypeSelectorSegmentedControl, title: "Gender")
-        row.selectorOptions = ["Male", "Female", "Multiple"]
-        section.addFormRow(row)
+        //        row = XLFormRowDescriptor(tag: Tags.Gender, rowType: XLFormRowDescriptorTypeSelectorSegmentedControl, title: "Gender")
+        //        row.selectorOptions = ["Male", "Female", "Multiple"]
+        //        section.addFormRow(row)
         
         // Zip Code
         row = XLFormRowDescriptor(tag: Tags.ZipCode, rowType: XLFormRowDescriptorTypeZipCode, title: "Zip Code")
@@ -123,10 +131,10 @@ class ReportViewController: XLFormViewController {
         section.addFormRow(row)
         
         //Activity
-        row = XLFormRowDescriptor(tag: Tags.ActivityType, rowType: XLFormRowDescriptorTypeSelectorPickerView, title: "Activity Type")
-        row.selectorOptions = ["Solicitation", "Exploitation", "Under Age", "Other"]
-        row.required = true
-        section.addFormRow(row)
+        //        row = XLFormRowDescriptor(tag: Tags.ActivityType, rowType: XLFormRowDescriptorTypeSelectorPickerView, title: "Activity Type")
+        //        row.selectorOptions = ["Solicitation", "Exploitation", "Under Age", "Other"]
+        //        row.required = true
+        //        section.addFormRow(row)
         
         section = XLFormSectionDescriptor.formSectionWithTitle("Location")
         form.addFormSection(section)
@@ -171,9 +179,9 @@ class ReportViewController: XLFormViewController {
                 let section = formRow.sectionDescriptor
                 if locationAdded {
                     INTULocationManager.sharedInstance().requestLocationWithDesiredAccuracy(INTULocationAccuracy.City, timeout: 10, block: { (location: CLLocation!, accuracy: INTULocationAccuracy, status: INTULocationStatus) -> Void in
-                        if let geoPoint = location {
-                            self.currentLocation = geoPoint
-                            AppHelper.getDisplayLocationFromLocation(geoPoint, completion: { (locationString) -> Void in
+                        if let location = location {
+                            self.currentLocation = PFGeoPoint(location: location)
+                            AppHelper.getDisplayLocationFromLocation(self.currentLocation, completion: { (locationString) -> Void in
                                 section.footerTitle = locationString
                                 self.tableView.reloadData()
                             })

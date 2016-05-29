@@ -17,7 +17,8 @@
 		69786AE31C5FDA3000BAF385 /* EULA.html in Resources */ = {isa = PBXBuildFile; fileRef = 69786AE21C5FDA3000BAF385 /* EULA.html */; };
 		69786AE61C5FDA4400BAF385 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69786AE41C5FDA4400BAF385 /* LicenseViewController.swift */; };
 		69786AE71C5FDA4400BAF385 /* LicenseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69786AE51C5FDA4400BAF385 /* LicenseViewController.xib */; };
-		69B6A5DF1C6A794300E51A5C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B6A5DE1C6A794300E51A5C /* CloudKit.framework */; };
+		69AF1AFA1C750EAD0085BB7C /* ServiceCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AF1AF91C750EAD0085BB7C /* ServiceCaller.swift */; };
+		69AF1AFC1C75142A0085BB7C /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AF1AFB1C75142A0085BB7C /* Report.swift */; };
 		69EE72041C28C6F4009C1957 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EE72031C28C6F4009C1957 /* AppDelegate.swift */; };
 		69EE72061C28C6F4009C1957 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EE72051C28C6F4009C1957 /* ReportViewController.swift */; };
 		69EE72091C28C6F4009C1957 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69EE72071C28C6F4009C1957 /* Main.storyboard */; };
@@ -50,8 +51,9 @@
 		69786AE21C5FDA3000BAF385 /* EULA.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = EULA.html; sourceTree = "<group>"; };
 		69786AE41C5FDA4400BAF385 /* LicenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
 		69786AE51C5FDA4400BAF385 /* LicenseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LicenseViewController.xib; sourceTree = "<group>"; };
+		69AF1AF91C750EAD0085BB7C /* ServiceCaller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceCaller.swift; sourceTree = "<group>"; };
+		69AF1AFB1C75142A0085BB7C /* Report.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		69B6A5DD1C6A793A00E51A5C /* TraffickingPolice.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TraffickingPolice.entitlements; sourceTree = "<group>"; };
-		69B6A5DE1C6A794300E51A5C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		69EE72001C28C6F4009C1957 /* TraffickingPolice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TraffickingPolice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69EE72031C28C6F4009C1957 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69EE72051C28C6F4009C1957 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
@@ -75,7 +77,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9C8D87881E22D6C5143AE56 /* Pods.framework in Frameworks */,
-				69B6A5DF1C6A794300E51A5C /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +109,15 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
+		69AF1AFD1C7518950085BB7C /* License */ = {
+			isa = PBXGroup;
+			children = (
+				69786AE41C5FDA4400BAF385 /* LicenseViewController.swift */,
+				69786AE51C5FDA4400BAF385 /* LicenseViewController.xib */,
+			);
+			name = License;
+			sourceTree = "<group>";
+		};
 		69EE71F71C28C6F4009C1957 = {
 			isa = PBXGroup;
 			children = (
@@ -135,13 +145,14 @@
 				695BB70F1C2A00E100C92376 /* Instructions.html */,
 				69786AE21C5FDA3000BAF385 /* EULA.html */,
 				69EE72031C28C6F4009C1957 /* AppDelegate.swift */,
+				69AF1AFB1C75142A0085BB7C /* Report.swift */,
 				69F445631C28CCE800F4A2DA /* InstructionsViewController.swift */,
-				69786AE41C5FDA4400BAF385 /* LicenseViewController.swift */,
-				69786AE51C5FDA4400BAF385 /* LicenseViewController.xib */,
+				69AF1AFD1C7518950085BB7C /* License */,
 				695BB7151C2A541100C92376 /* MainViewController.swift */,
 				69739A021C45ED6B00183BA5 /* Reported */,
 				69EE72051C28C6F4009C1957 /* ReportViewController.swift */,
 				695BB7131C2A139700C92376 /* AppHelper.swift */,
+				69AF1AF91C750EAD0085BB7C /* ServiceCaller.swift */,
 				69EE72231C28C767009C1957 /* Suporting Files */,
 			);
 			path = TraffickingPolice;
@@ -171,7 +182,6 @@
 		6F7EE18EA4BAC9B67A0003D0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				69B6A5DE1C6A794300E51A5C /* CloudKit.framework */,
 				D8A2C81FBDCC417C34877F59 /* Pods.framework */,
 			);
 			name = Frameworks;
@@ -244,7 +254,7 @@
 						DevelopmentTeam = CEBY93VF85;
 						SystemCapabilities = {
 							com.apple.iCloud = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -377,12 +387,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69AF1AFC1C75142A0085BB7C /* Report.swift in Sources */,
 				695BB7161C2A541100C92376 /* MainViewController.swift in Sources */,
 				695BB7141C2A139700C92376 /* AppHelper.swift in Sources */,
 				69739A071C45EDCD00183BA5 /* ReportedTableViewCell.swift in Sources */,
 				69EE72061C28C6F4009C1957 /* ReportViewController.swift in Sources */,
 				6941F2531C2E597300238B8D /* ReportedDetailViewController.swift in Sources */,
 				69786AE61C5FDA4400BAF385 /* LicenseViewController.swift in Sources */,
+				69AF1AFA1C750EAD0085BB7C /* ServiceCaller.swift in Sources */,
 				69EE72041C28C6F4009C1957 /* AppDelegate.swift in Sources */,
 				69F445621C28CC0900F4A2DA /* ReportedViewController.swift in Sources */,
 				69F445641C28CCE800F4A2DA /* InstructionsViewController.swift in Sources */,
@@ -516,7 +528,6 @@
 			baseConfigurationReference = 8C989E03C1B9609BABF047F3 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = TraffickingPolice/TraffickingPolice.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -535,7 +546,6 @@
 			baseConfigurationReference = AB610B7393E42287B883752E /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = TraffickingPolice/TraffickingPolice.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				INFOPLIST_FILE = TraffickingPolice/Info.plist;

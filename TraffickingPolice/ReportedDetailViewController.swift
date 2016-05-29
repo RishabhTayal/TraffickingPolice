@@ -7,17 +7,16 @@
 //
 
 import UIKit
-import RTCloudKit
-import CloudKit
+import Parse
 
 class ReportedDetailViewController: ReportViewController {
     
-    var reportObject: CKRecord!
+    var reportObject: Report!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "actionButtonTapped:")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(ReportedDetailViewController.actionButtonTapped(_:)))
         
         configureValues()
     }
@@ -25,8 +24,8 @@ class ReportedDetailViewController: ReportViewController {
     func actionButtonTapped(sender: AnyObject) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         actionSheet.addAction(UIAlertAction(title: "Report as Abuse Content", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction) -> Void in
-            self.reportObject.setValue(true, forKey: "abusiveContent")
-            RTCloudKit.sharedInstance.saveRecordInBackground(self.reportObject, completionHandler: { (object, error) -> Void in
+            self.reportObject.abusive = true
+            ServiceCaller.updateReportObject(self.reportObject, completion: { (result, error) -> Void in
                 let alert = UIAlertController(title: "Reported abusive content", message: nil, preferredStyle: .Alert)
                 alert.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
@@ -37,13 +36,15 @@ class ReportedDetailViewController: ReportViewController {
     }
     
     func configureValues() {
-        for key in reportObject.allKeys() {
+        for key in reportObject.allKeys {
             let row = form.formRowWithTag(key)
-            if let file = reportObject[key] as? CKAsset {
+            if let file = reportObject[key] as? PFFile {
                 print("file")
-                row?.value = UIImage(contentsOfFile: file.fileURL.path!)
-                self.tableView.reloadData()
-            } else if let location = reportObject[key] as? CLLocation {
+                file.getDataInBackgroundWithBlock({ (data: NSData?, error: NSError?) in
+                    row?.value = UIImage(data: data!)
+                    self.tableView.reloadData()
+                })
+            } else if let location = reportObject[key] as? PFGeoPoint {
                 print("locatiom")
                 row?.value = true
                 AppHelper.getDisplayLocationFromLocation(location, completion: { (locationString) -> Void in
@@ -51,7 +52,7 @@ class ReportedDetailViewController: ReportViewController {
                     section?.footerTitle = locationString
                     self.tableView.reloadData()
                 })
-            } else if let value = reportObject[key] {
+            } else if let value = reportObject.valueForKey(key) {
                 if value is NSNull {
                     
                 } else {

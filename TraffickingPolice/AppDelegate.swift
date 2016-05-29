@@ -9,16 +9,17 @@
 import UIKit
 import Fabric
 import Crashlytics
-import CloudKit
+import Parse
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         Fabric.with([Crashlytics.self])
+        
+        Report.registerSubclass()
         
         let takingScreenshots = NSUserDefaults.standardUserDefaults().boolForKey("FASTLANE_SNAPSHOT")
         if takingScreenshots {
@@ -27,25 +28,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             showMainScreen()
         }
         
+        let config = ParseClientConfiguration {
+            $0.applicationId = "myAppId"
+            $0.clientKey = ""
+            $0.server = "https://trafficking-backend.herokuapp.com/parse"
+        }
+        Parse.initializeWithConfiguration(config)
+        
         //        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.redColor()], forState: .Selected)
         
         return true
-    }
-    
-    func applicationDidBecomeActive(application: UIApplication) {
-        CKContainer.defaultContainer().accountStatusWithCompletionHandler { (status: CKAccountStatus, error: NSError?) -> Void in
-            if (status == .NoAccount) {
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    let alert = UIAlertController(title: "Sign in to iCloud",
-                        message: "Sign in to your iCloud account. On the Home screen, launch Settings, tap iCloud, and enter your Apple ID. If you don't have an iCloud account, tap Create a new Apple ID.",
-                        preferredStyle: .Alert)
-                    alert.addAction(UIAlertAction(title: "Okay", style: .Cancel, handler: nil))
-                    self.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
-                })
-            } else {
-                // Insert your just-in-time schema code here
-            }
-        }
     }
     
     func showMainScreen() {

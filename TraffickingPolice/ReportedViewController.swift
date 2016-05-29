@@ -7,15 +7,14 @@
 //
 
 import UIKit
-import RTCloudKit
 import UITableView_NXEmptyView
 import AFNetworking
-import CloudKit
+import Parse
 
 class ReportedViewController: UIViewController {
     
     var tableView: UITableView!
-    var datasourceArray: [CKRecord] = []
+    var datasourceArray: [Report] = []
     
     var refreshControl: UIRefreshControl = UIRefreshControl()
     
@@ -29,7 +28,7 @@ class ReportedViewController: UIViewController {
         tableView.delegate = self
         view.addSubview(tableView)
         
-        refreshControl.addTarget(self, action: "refreshData", forControlEvents: .ValueChanged)
+        refreshControl.addTarget(self, action: #selector(ReportedViewController.refreshData), forControlEvents: .ValueChanged)
         tableView.addSubview(refreshControl)
         
         tableView.registerNib(UINib(nibName: "ReportedTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
@@ -40,11 +39,9 @@ class ReportedViewController: UIViewController {
     }
     
     func refreshData() {
-        let query = CKQuery(recordType: "Reported", predicate: NSPredicate(value: true))
-        query.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        RTCloudKit.sharedInstance.performQuery(query) { (objects, error) -> Void in  
+        ServiceCaller.getReportListing { (objects: [PFObject]?, error: NSError?) in
             self.refreshControl.endRefreshing()
-            if let objects = objects {
+            if let objects = objects as? [Report] {
                 self.datasourceArray = objects
                 self.tableView.reloadData()
             }
@@ -65,13 +62,14 @@ extension ReportedViewController: UITableViewDataSource, UITableViewDelegate {
         let cell: ReportedTableViewCell = tableView.dequeueReusableCellWithIdentifier("cell") as! ReportedTableViewCell
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         let object = datasourceArray[indexPath.row]
-        cell.nameLabel.text = object["reason"] as? String
-        let location = object["location"] as? CLLocation
+        cell.nameLabel.text = object.reason
+        //TODO: enable location string
+        let location = object["location"] as? PFGeoPoint
         AppHelper.getDisplayLocationFromLocation(location) { (locationString) -> Void in
             cell.subTitleLabel.text = locationString
         }
-        if let file = object["image"] as? CKAsset {
-            cell.mainImageView.setImageWithURL(file.fileURL)
+        if let file = object["image"] as? PFFile {
+            cell.mainImageView.setImageWithURL(NSURL(string: file.url!)!, placeholderImage: UIImage(named: "default_avatar"))
         } else {
             cell.mainImageView.image = UIImage(named: "default_avatar")
         }
