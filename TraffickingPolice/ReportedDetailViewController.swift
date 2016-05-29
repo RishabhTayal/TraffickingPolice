@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class ReportedDetailViewController: ReportViewController {
     
@@ -23,7 +24,6 @@ class ReportedDetailViewController: ReportViewController {
     func actionButtonTapped(sender: AnyObject) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         actionSheet.addAction(UIAlertAction(title: "Report as Abuse Content", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction) -> Void in
-            //            self.reportObject.setValue(true, forKey: "abusiveContent")
             self.reportObject.abusive = true
             ServiceCaller.updateReportObject(self.reportObject, completion: { (result, error) -> Void in
                 let alert = UIAlertController(title: "Reported abusive content", message: nil, preferredStyle: .Alert)
@@ -38,20 +38,21 @@ class ReportedDetailViewController: ReportViewController {
     func configureValues() {
         for key in reportObject.allKeys {
             let row = form.formRowWithTag(key)
-            //            if let file = reportObject[key] as? CKAsset {
-            //                print("file")
-            //                row?.value = UIImage(contentsOfFile: file.fileURL.path!)
-            //                self.tableView.reloadData()
-            //            } else if let location = reportObject[key] as? CLLocation {
-            //                print("locatiom")
-            //                row?.value = true
-            //                AppHelper.getDisplayLocationFromLocation(location, completion: { (locationString) -> Void in
-            //                    let section = row?.sectionDescriptor
-            //                    section?.footerTitle = locationString
-            //                    self.tableView.reloadData()
-            //                })
-            //        } else if let value = reportObject.valueForKey(key) {
-            if let value = reportObject.valueForKey(key) {
+            if let file = reportObject[key] as? PFFile {
+                print("file")
+                file.getDataInBackgroundWithBlock({ (data: NSData?, error: NSError?) in
+                    row?.value = UIImage(data: data!)
+                    self.tableView.reloadData()
+                })
+            } else if let location = reportObject[key] as? PFGeoPoint {
+                print("locatiom")
+                row?.value = true
+                AppHelper.getDisplayLocationFromLocation(location, completion: { (locationString) -> Void in
+                    let section = row?.sectionDescriptor
+                    section?.footerTitle = locationString
+                    self.tableView.reloadData()
+                })
+            } else if let value = reportObject.valueForKey(key) {
                 if value is NSNull {
                     
                 } else {

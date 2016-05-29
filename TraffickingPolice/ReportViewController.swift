@@ -10,6 +10,7 @@ import UIKit
 import XLForm
 import MBProgressHUD
 import INTULocationManager
+import Parse
 
 class ReportViewController: XLFormViewController {
     
@@ -30,7 +31,7 @@ class ReportViewController: XLFormViewController {
         initialForm()
     }
     
-    var currentLocation: CLLocation?
+    var currentLocation: PFGeoPoint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +63,11 @@ class ReportViewController: XLFormViewController {
             if let key = key as? String {
                 if let image: UIImage = form.formValues()[key] as? UIImage {
                     if  image != UIImage(named: "default_avatar") {
-                        //TODO: Add image
+                        let file = PFFile(data: UIImageJPEGRepresentation(image, 1.0)!)
+                        do {
+                            try file?.save()
+                        } catch { }
+                        object[key] = file
                         //                        let imageFile = CKAsset(fileURL: AppHelper.saveImageToFile(image))
                         //                        object[key] = imageFile
                     }
@@ -98,9 +103,9 @@ class ReportViewController: XLFormViewController {
         form = XLFormDescriptor()
         form.addAsteriskToRequiredRowsTitle = true
         
-//        section = XLFormSectionDescriptor.formSectionWithTitle("Describe the reason you are reporting")
-//        form.addFormSection(section)
-//        
+        //        section = XLFormSectionDescriptor.formSectionWithTitle("Describe the reason you are reporting")
+        //        form.addFormSection(section)
+        //
         // Reason
         //        row = XLFormRowDescriptor(tag: Tags.Reason, rowType: XLFormRowDescriptorTypeTextView)
         //        row.cellConfig.setObject("eg. I saw a young girl, no belongings and dressed for summertime instead of rain.", forKey: "textView.placeholder")
@@ -174,9 +179,9 @@ class ReportViewController: XLFormViewController {
                 let section = formRow.sectionDescriptor
                 if locationAdded {
                     INTULocationManager.sharedInstance().requestLocationWithDesiredAccuracy(INTULocationAccuracy.City, timeout: 10, block: { (location: CLLocation!, accuracy: INTULocationAccuracy, status: INTULocationStatus) -> Void in
-                        if let geoPoint = location {
-                            self.currentLocation = geoPoint
-                            AppHelper.getDisplayLocationFromLocation(geoPoint, completion: { (locationString) -> Void in
+                        if let location = location {
+                            self.currentLocation = PFGeoPoint(location: location)
+                            AppHelper.getDisplayLocationFromLocation(self.currentLocation, completion: { (locationString) -> Void in
                                 section.footerTitle = locationString
                                 self.tableView.reloadData()
                             })

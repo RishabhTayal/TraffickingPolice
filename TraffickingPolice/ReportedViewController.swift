@@ -64,15 +64,15 @@ extension ReportedViewController: UITableViewDataSource, UITableViewDelegate {
         let object = datasourceArray[indexPath.row]
         cell.nameLabel.text = object.reason
         //TODO: enable location string
-        //        let location = object["location"] as? CLLocation
-        //        AppHelper.getDisplayLocationFromLocation(location) { (locationString) -> Void in
-        //            cell.subTitleLabel.text = locationString
-        //        }
-        //        if let file = object["image"] as? CKAsset {
-        //            cell.mainImageView.setImageWithURL(file.fileURL)
-        //        } else {
-        //            cell.mainImageView.image = UIImage(named: "default_avatar")
-        //        }
+        let location = object["location"] as? PFGeoPoint
+        AppHelper.getDisplayLocationFromLocation(location) { (locationString) -> Void in
+            cell.subTitleLabel.text = locationString
+        }
+        if let file = object["image"] as? PFFile {
+            cell.mainImageView.setImageWithURL(NSURL(string: file.url!)!, placeholderImage: UIImage(named: "default_avatar"))
+        } else {
+            cell.mainImageView.image = UIImage(named: "default_avatar")
+        }
         return cell
     }
     

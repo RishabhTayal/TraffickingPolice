@@ -16,7 +16,7 @@ protocol PropertyNames {
 class Report: PFObject, PFSubclassing, PropertyNames {
     
     @NSManaged var reason: String?
-    //    var location: CLLocation?
+    @NSManaged var location: PFGeoPoint?
     @NSManaged var latitude: NSNumber?
     @NSManaged var longitude: NSNumber?
     @NSManaged var imageUrl1: NSString?
